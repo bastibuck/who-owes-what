@@ -1,5 +1,7 @@
 # Who owes what
 
+[Live-Demo](https://wow.bastibuck.de)
+
 This is meant to become a simple SPA to help friends split their expenses evenly without getting into a fight. 'cause friendship is more import than money.
 
 Heavily inspired by the many Apps out there I'm using this project to learn and build something helpful at the same time.
