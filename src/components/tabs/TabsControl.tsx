@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,12 +9,7 @@ import {
 
 // other
 import { mq } from "../layout/utils/utils";
-
-enum ETabs {
-  FRIENDS,
-  EXPENSES,
-  RESULT,
-}
+import { ETabs, useStateValue } from "../../store/useStore";
 
 const Tab = styled.li``;
 const TabContent = styled.a`
@@ -25,18 +20,31 @@ const TabContent = styled.a`
 const IconContainer = styled.span.attrs({ className: "icon is-small" })``;
 
 const TabsControl = () => {
-  const [activeTab, setActiveTab] = useState(ETabs.FRIENDS);
+  //@ts-ignore
+  const [stateValue, dispatch] = useStateValue();
+
+  //@ts-ignore
+  const activeTab = stateValue.activeTab;
 
   const handleClickFriends = (e: React.MouseEvent) => {
-    setActiveTab(ETabs.FRIENDS);
+    dispatch({
+      type: "changeTab",
+      newTab: ETabs.FRIENDS,
+    });
   };
 
   const handleClickExpenses = (e: React.MouseEvent) => {
-    setActiveTab(ETabs.EXPENSES);
+    dispatch({
+      type: "changeTab",
+      newTab: ETabs.EXPENSES,
+    });
   };
 
   const handleClickResult = (e: React.MouseEvent) => {
-    setActiveTab(ETabs.RESULT);
+    dispatch({
+      type: "changeTab",
+      newTab: ETabs.RESULT,
+    });
   };
 
   return (
