@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // components
 import TabsControl from "../tabs/TabsControl";
-import Header from "../Header";
+import Header from "./Header";
 
 const MainContainer = styled.section`
   flex-grow: 1;

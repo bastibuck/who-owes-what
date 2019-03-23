@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import "bulma/css/bulma.css";
 
@@ -11,15 +11,12 @@ const AppContainer = styled.div`
   flex-direction: column;
   min-height: 100vh;
 `;
-class App extends Component {
-  public render() {
-    return (
-      <AppContainer>
-        <Main />
-        <Footer />
-      </AppContainer>
-    );
-  }
-}
+
+const App = () => (
+  <AppContainer>
+    <Main />
+    <Footer />
+  </AppContainer>
+);
 
 export default App;
