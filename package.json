@@ -10,6 +10,7 @@
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8",
+    "tent-css": "^1.4.3",
     "typescript": "3.3.4000"
   },
   "scripts": {
@@ -26,5 +27,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0"
+  }
 }

@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-empty": true,
+    "no-console": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any"
+      }
+    ],
+    "member-ordering": true,
+    "no-duplicate-imports": true,
+    "no-unused-variable": true
+  }
+}
