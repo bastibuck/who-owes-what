@@ -7,10 +7,11 @@
     "@types/node": "11.11.6",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.3",
+    "bulma": "^0.7.4",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8",
-    "tent-css": "^1.4.3",
+    "styled-components": "^4.2.0",
     "typescript": "3.3.4000"
   },
   "scripts": {
@@ -29,6 +30,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/styled-components": "^4.1.12",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",

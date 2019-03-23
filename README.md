@@ -24,4 +24,6 @@ Heavily inspired by the many Apps out there I'm using this project to learn and 
 - TypeScript
 - tslint
 - Prettier
-- tent-css
+- bulma.io
+- styled-components
+- FontAwesome
