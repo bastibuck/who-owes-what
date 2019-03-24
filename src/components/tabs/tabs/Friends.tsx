@@ -33,12 +33,12 @@ const Friends = () => {
     <div>
       <div className="columns is-multiline">
         {stateValue.friends.map((friend: IFriend, index: number) => (
-          <FriendBox friend={friend} key={index} />
+          <FriendBox friend={friend} key={`friendsBox-${index}`} />
         ))}
       </div>
 
       <form onSubmit={handleAddFriend}>
-        <div className="field">
+        <div className="field is-grouped">
           <p className="control has-icons-left has-icons-right">
             <input
               className="input"
@@ -51,9 +51,6 @@ const Friends = () => {
               <FontAwesomeIcon icon={faUser} />
             </span>
           </p>
-        </div>
-
-        <div className="field is-grouped">
           {friendName && (
             <>
               <div className="control">

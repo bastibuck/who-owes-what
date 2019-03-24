@@ -10,6 +10,10 @@ export const addFriendReducer = (
       ...state.friends,
       { id: state.ids.nextFriendId, name: newFriend },
     ],
+    friendsById: {
+      ...state.friendsById,
+      [state.ids.nextFriendId]: newFriend,
+    },
     ids: { ...state.ids, nextFriendId: state.ids.nextFriendId + 1 },
   };
 };

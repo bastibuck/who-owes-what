@@ -24,15 +24,19 @@ interface IRootStore {
   readonly ids: IIds;
   readonly activeTab: ETabs;
   readonly friends: IFriend[];
+  readonly friendsById: {
+    [id: number]: string;
+  };
   readonly expenses: IExpense[];
 }
 
 export const initialState: IRootStore = {
   ids: {
-    nextFriendId: 1,
-    nextExpenseId: 1,
+    nextFriendId: 0,
+    nextExpenseId: 0,
   },
   activeTab: ETabs.FRIENDS,
   friends: [],
+  friendsById: {},
   expenses: [],
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { useStateValue } from "../../store/useStore";
 import { ETabs } from "../../store/initialState";
 import Friends from "./tabs/Friends";
-import Expenses from "./tabs/Expenses";
+import Expenses from "./tabs/expenses/Expenses";
 import Result from "./tabs/Result";
 
 const getTabContent = (activeTab: ETabs) => {
