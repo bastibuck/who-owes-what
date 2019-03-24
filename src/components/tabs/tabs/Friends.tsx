@@ -4,6 +4,7 @@ import { useStateValue } from "../../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import FriendBox from "./friends/FriendBox";
+import { IFriend } from "../../../store/initialState";
 
 const Friends = () => {
   // @ts-ignore
@@ -29,7 +30,7 @@ const Friends = () => {
   return (
     <div>
       <div className="columns is-multiline">
-        {stateValue.friends.map((friend: string, index: number) => (
+        {stateValue.friends.map((friend: IFriend, index: number) => (
           <FriendBox friend={friend} key={index} />
         ))}
       </div>

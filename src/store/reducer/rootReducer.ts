@@ -1,6 +1,6 @@
 import { initialState } from "../initialState";
 import { changeTabReducer } from "./tabReducer";
-import { addFriendReducer } from "./friendReducer";
+import { addFriendReducer, removeFriendReducer } from "./friendReducer";
 
 export const rootReducer = (
   state: typeof initialState,
@@ -12,6 +12,9 @@ export const rootReducer = (
 
     case "addFriend":
       return addFriendReducer(state, action.payload);
+
+    case "removeFriend":
+      return removeFriendReducer(state, action.payload);
 
     default:
       return state;

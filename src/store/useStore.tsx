@@ -14,5 +14,3 @@ export const StoreProvider = (props: React.PropsWithChildren<{}>) => (
 
 // Hook to read and write values from store
 export const useStateValue = () => useContext(StoreContext);
-
-// https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c

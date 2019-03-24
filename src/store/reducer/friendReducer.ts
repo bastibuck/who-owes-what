@@ -6,6 +6,20 @@ export const addFriendReducer = (
 ) => {
   return {
     ...state,
-    friends: [...state.friends, newFriend],
+    friends: [
+      ...state.friends,
+      { id: state.ids.nextFriendId, name: newFriend },
+    ],
+    ids: { ...state.ids, nextFriendId: state.ids.nextFriendId + 1 },
+  };
+};
+
+export const removeFriendReducer = (
+  state: typeof initialState,
+  removeFriend: number,
+) => {
+  return {
+    ...state,
+    friends: state.friends.filter(friend => friend.id !== removeFriend),
   };
 };

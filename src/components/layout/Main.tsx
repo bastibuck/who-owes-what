@@ -5,12 +5,20 @@ import styled from "styled-components";
 import TabsControl from "../tabs/TabsControl";
 import Header from "./Header";
 import TabActive from "../tabs/TabActive";
+import { useStateValue } from "../../store/useStore";
 
 const MainContainer = styled.section`
   flex-grow: 1;
 `;
 
 const Main = () => {
+  // @ts-ignore
+  const [stateValue, dispatch] = useStateValue();
+
+  console.groupCollapsed("Store");
+  console.log(stateValue);
+  console.groupEnd();
+
   return (
     <MainContainer className="section">
       <Header />

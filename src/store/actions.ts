@@ -9,3 +9,8 @@ export const addFriendAction = (newFriend: string) => ({
   type: "addFriend",
   payload: newFriend,
 });
+
+export const removeFriendAction = (friendId: number) => ({
+  type: "removeFriend",
+  payload: friendId,
+});
