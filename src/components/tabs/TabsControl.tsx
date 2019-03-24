@@ -13,30 +13,52 @@ import { useStateValue } from "../../store/useStore";
 import { changeTabAction } from "../../store/actions";
 import { ETabs } from "../../store/initialState";
 
-const Tab = styled.li``;
+// styled components
+const Tab = styled.li<{ disabled?: boolean }>`
+  ${props =>
+    props.disabled &&
+    `
+    a,
+    a:hover {
+      cursor: not-allowed;
+      border-color: #dbdbdb !important;
+    }
+  `};
+`;
+
 const TabContent = styled.a`
   ${mq.mobile(`
     border-radius: 0 !important;
   `)}
 `;
+
 const IconContainer = styled.span.attrs({ className: "icon is-small" })``;
 
+// TabsControl component
 const TabsControl = () => {
   //@ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
   const activeTab = stateValue.activeTab;
+  const friends = stateValue.friends;
+
+  const expensesDisabled = true && friends.length < 1;
+  const resultsDisabled = expensesDisabled;
 
   const handleClickFriends = (e: React.MouseEvent) => {
     dispatch(changeTabAction(ETabs.FRIENDS));
   };
 
   const handleClickExpenses = (e: React.MouseEvent) => {
-    dispatch(changeTabAction(ETabs.EXPENSES));
+    if (!expensesDisabled) {
+      dispatch(changeTabAction(ETabs.EXPENSES));
+    }
   };
 
   const handleClickResult = (e: React.MouseEvent) => {
-    dispatch(changeTabAction(ETabs.RESULT));
+    if (!resultsDisabled) {
+      dispatch(changeTabAction(ETabs.RESULT));
+    }
   };
 
   return (
@@ -60,8 +82,15 @@ const TabsControl = () => {
               className={`is-marginless ${activeTab === ETabs.EXPENSES &&
                 "is-active"}`}
               onClick={handleClickExpenses}
+              disabled={expensesDisabled}
             >
-              <TabContent>
+              <TabContent
+                className={
+                  expensesDisabled
+                    ? "has-text-grey-light has-background-white-ter"
+                    : ""
+                }
+              >
                 <IconContainer>
                   <FontAwesomeIcon icon={faDollarSign} />
                 </IconContainer>
@@ -72,8 +101,15 @@ const TabsControl = () => {
               className={`is-marginless ${activeTab === ETabs.RESULT &&
                 "is-active"}`}
               onClick={handleClickResult}
+              disabled={resultsDisabled}
             >
-              <TabContent>
+              <TabContent
+                className={
+                  resultsDisabled
+                    ? "has-text-grey-light has-background-white-ter"
+                    : ""
+                }
+              >
                 <IconContainer>
                   <FontAwesomeIcon icon={faChartBar} />
                 </IconContainer>

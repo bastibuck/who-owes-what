@@ -7,4 +7,5 @@ export enum ETabs {
 
 export const initialState = {
   activeTab: ETabs.FRIENDS,
+  friends: [],
 };
