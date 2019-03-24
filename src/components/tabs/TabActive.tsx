@@ -1,16 +1,19 @@
 import React from "react";
 import { useStateValue } from "../../store/useStore";
 import { ETabs } from "../../store/initialState";
+import Friends from "./tabs/Friends";
+import Expenses from "./tabs/Expenses";
+import Result from "./tabs/Result";
 
-const getTabSublines = (activeTab: ETabs) => {
+const getTabContent = (activeTab: ETabs) => {
   switch (activeTab) {
     case ETabs.FRIENDS:
-      return "Add your friends";
+      return <Friends />;
     case ETabs.EXPENSES:
-      return "Add all your expenses";
+      return <Expenses />;
 
     case ETabs.RESULT:
-      return "See who owes what";
+      return <Result />;
 
     default:
       return "no tab selected";
@@ -21,13 +24,7 @@ const TabActive = () => {
   //@ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
-  const activeTab = stateValue.activeTab;
-
-  return (
-    <div className="container">
-      <h3 className={"subtitle"}>{getTabSublines(activeTab)}</h3>
-    </div>
-  );
+  return <div className="container">{getTabContent(stateValue.activeTab)}</div>;
 };
 
 export default TabActive;

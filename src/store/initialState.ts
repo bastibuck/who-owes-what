@@ -5,7 +5,12 @@ export enum ETabs {
   RESULT,
 }
 
-export const initialState = {
+interface IRootStore {
+  activeTab: ETabs;
+  friends: string[];
+}
+
+export const initialState: IRootStore = {
   activeTab: ETabs.FRIENDS,
   friends: [],
 };

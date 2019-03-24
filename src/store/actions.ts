@@ -4,3 +4,8 @@ export const changeTabAction = (newTab: ETabs) => ({
   type: "changeTab",
   payload: newTab,
 });
+
+export const addFriendAction = () => ({
+  type: "addFriend",
+  payload: "Peter Pan",
+});
