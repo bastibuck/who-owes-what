@@ -6,11 +6,13 @@ export enum ETabs {
 }
 
 interface IRootStore {
-  activeTab: ETabs;
-  friends: string[];
+  readonly activeTab: ETabs;
+  readonly friends: string[];
+  readonly expenses: { amount: number }[];
 }
 
 export const initialState: IRootStore = {
   activeTab: ETabs.FRIENDS,
   friends: [],
+  expenses: [],
 };

@@ -41,9 +41,10 @@ const TabsControl = () => {
 
   const activeTab = stateValue.activeTab;
   const friends = stateValue.friends;
+  const expenses = stateValue.expenses;
 
   const expensesDisabled = friends.length < 1;
-  const resultsDisabled = expensesDisabled;
+  const resultsDisabled = expensesDisabled || expenses.length < 1;
 
   const handleClickFriends = (e: React.MouseEvent) => {
     dispatch(changeTabAction(ETabs.FRIENDS));
