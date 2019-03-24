@@ -8,7 +8,10 @@ export enum ETabs {
 interface IRootStore {
   readonly activeTab: ETabs;
   readonly friends: string[];
-  readonly expenses: { amount: number }[];
+  readonly expenses: {
+    readonly amount: number;
+    readonly sharedWith: number[];
+  }[];
 }
 
 export const initialState: IRootStore = {
