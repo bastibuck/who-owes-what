@@ -14,8 +14,10 @@ const Friends = () => {
 
   const handleAddFriend = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(addFriendAction(friendName));
-    setFriendName("");
+    if (friendName) {
+      dispatch(addFriendAction(friendName));
+      setFriendName("");
+    }
   };
 
   const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -52,14 +54,18 @@ const Friends = () => {
         </div>
 
         <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link">Add Friend</button>
-          </div>
-          <div className="control">
-            <button onClick={handleCancel} className="button is-text">
-              Cancel
-            </button>
-          </div>
+          {friendName && (
+            <>
+              <div className="control">
+                <button className="button is-link">Add Friend</button>
+              </div>
+              <div className="control">
+                <button onClick={handleCancel} className="button is-text">
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </form>
     </div>
