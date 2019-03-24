@@ -38,7 +38,7 @@ const Friends = () => {
       </div>
 
       <form onSubmit={handleAddFriend}>
-        <div className="field is-grouped">
+        <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input
               className="input"
@@ -51,19 +51,19 @@ const Friends = () => {
               <FontAwesomeIcon icon={faUser} />
             </span>
           </p>
-          {friendName && (
-            <>
-              <div className="control">
-                <button className="button is-link">Add Friend</button>
-              </div>
-              <div className="control">
-                <button onClick={handleCancel} className="button is-text">
-                  Cancel
-                </button>
-              </div>
-            </>
-          )}
         </div>
+        {friendName && (
+          <div className={"field is-grouped"}>
+            <div className="control">
+              <button className="button is-link">Add Friend</button>
+            </div>
+            <div className="control">
+              <button onClick={handleCancel} className="button is-text">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

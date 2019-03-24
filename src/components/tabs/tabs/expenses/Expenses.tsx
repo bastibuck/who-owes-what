@@ -55,7 +55,7 @@ const Expenses = () => {
 
   return (
     <form onSubmit={handleAddExpense}>
-      <div className="field is-grouped">
+      <div className="field">
         <p className="control has-icons-left has-icons-right">
           <input
             className="input"
@@ -68,6 +68,8 @@ const Expenses = () => {
             <FontAwesomeIcon icon={faCubes} />
           </span>
         </p>
+      </div>
+      <div className="field">
         <p className="control has-icons-left has-icons-right">
           <input
             className="input"
@@ -80,29 +82,26 @@ const Expenses = () => {
             <FontAwesomeIcon icon={faDollarSign} />
           </span>
         </p>
-
-        <div className="control">
-          <div className="field">
-            <div className="control is-expanded">
-              <div className="select is-fullwidth">
-                <select value={""} onChange={handleSharedWithChange}>
-                  <option>Shared with...</option>
-                  {stateValue.friends
-                    .filter((friend: IFriend) => {
-                      if (!sharedWithIds) {
-                        return true;
-                      }
-                      return !sharedWithIds.includes(friend.id.toString());
-                    })
-                    .map((friend: IFriend, index: number) => (
-                      <SharedWithOption
-                        friend={friend}
-                        key={`sharedWithOption-${index}`}
-                      />
-                    ))}
-                </select>
-              </div>
-            </div>
+      </div>
+      <div className="field">
+        <div className="control is-expanded">
+          <div className="select is-fullwidth">
+            <select value={""} onChange={handleSharedWithChange}>
+              <option>Shared with...</option>
+              {stateValue.friends
+                .filter((friend: IFriend) => {
+                  if (!sharedWithIds) {
+                    return true;
+                  }
+                  return !sharedWithIds.includes(friend.id.toString());
+                })
+                .map((friend: IFriend, index: number) => (
+                  <SharedWithOption
+                    friend={friend}
+                    key={`sharedWithOption-${index}`}
+                  />
+                ))}
+            </select>
           </div>
         </div>
       </div>
@@ -116,16 +115,18 @@ const Expenses = () => {
             />
           ))}
       </div>
-      <div className="field is-grouped">
-        <div className="control">
-          <button className="button is-link">Add Expense</button>
+      {expense.name && expense.amount && expense.sharedWith.length > 0 && (
+        <div className="field is-grouped">
+          <div className="control">
+            <button className="button is-link">Add Expense</button>
+          </div>
+          <div className="control">
+            <button onClick={resetExpense} className="button is-text">
+              Cancel
+            </button>
+          </div>
         </div>
-        <div className="control">
-          <button onClick={resetExpense} className="button is-text">
-            Cancel
-          </button>
-        </div>
-      </div>
+      )}
     </form>
   );
 };
