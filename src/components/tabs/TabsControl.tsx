@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartBar,
   faDollarSign,
-  faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 // other
@@ -73,7 +73,7 @@ const TabsControl = () => {
             >
               <TabContent>
                 <IconContainer>
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faUsers} />
                 </IconContainer>
                 <span>Add friends</span>
               </TabContent>

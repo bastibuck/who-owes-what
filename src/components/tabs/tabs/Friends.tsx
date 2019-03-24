@@ -1,24 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import FriendBox from "./friends/FriendBox";
 
 const Friends = () => {
   // @ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
-  const handleAddFriend = (e: React.MouseEvent) => {
-    dispatch(addFriendAction());
+  const [friendName, setFriendName] = useState("");
+
+  const handleAddFriend = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(addFriendAction(friendName));
+    setFriendName("");
+  };
+
+  const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setFriendName(e.currentTarget.value);
+  };
+
+  const handleCancel = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setFriendName("");
   };
 
   return (
     <div>
-      <p>Friends</p>
-      <button onClick={handleAddFriend}>Add Friend</button>
-      <ul>
+      <div className="columns is-multiline">
         {stateValue.friends.map((friend: string, index: number) => (
-          <li key={index}>{friend}</li>
+          <FriendBox friend={friend} key={index} />
         ))}
-      </ul>
+      </div>
+
+      <form onSubmit={handleAddFriend}>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="text"
+              placeholder="Input a friend's name"
+              value={friendName}
+              onChange={handleFriendNameChange}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={faUser} />
+            </span>
+          </p>
+        </div>
+
+        <div className="field is-grouped">
+          <div className="control">
+            <button className="button is-link">Add Friend</button>
+          </div>
+          <div className="control">
+            <button onClick={handleCancel} className="button is-text">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
