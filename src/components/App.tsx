@@ -7,7 +7,7 @@ import Footer from "./layout/Footer";
 import Main from "./layout/Main";
 
 // store
-import { StateProvider } from "../store/useStore";
+import { StoreProvider } from "../store/useStore";
 
 const AppContainer = styled.div`
   display: flex;
@@ -17,12 +17,12 @@ const AppContainer = styled.div`
 
 const App = () => {
   return (
-    <StateProvider>
+    <StoreProvider>
       <AppContainer>
         <Main />
         <Footer />
       </AppContainer>
-    </StateProvider>
+    </StoreProvider>
   );
 };
 

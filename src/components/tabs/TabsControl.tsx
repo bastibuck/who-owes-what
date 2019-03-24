@@ -9,7 +9,9 @@ import {
 
 // other
 import { mq } from "../layout/utils/utils";
-import { ETabs, useStateValue } from "../../store/useStore";
+import { useStateValue } from "../../store/useStore";
+import { changeTabAction } from "../../store/actions";
+import { ETabs } from "../../store/initialState";
 
 const Tab = styled.li``;
 const TabContent = styled.a`
@@ -23,28 +25,18 @@ const TabsControl = () => {
   //@ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
-  //@ts-ignore
   const activeTab = stateValue.activeTab;
 
   const handleClickFriends = (e: React.MouseEvent) => {
-    dispatch({
-      type: "changeTab",
-      newTab: ETabs.FRIENDS,
-    });
+    dispatch(changeTabAction(ETabs.FRIENDS));
   };
 
   const handleClickExpenses = (e: React.MouseEvent) => {
-    dispatch({
-      type: "changeTab",
-      newTab: ETabs.EXPENSES,
-    });
+    dispatch(changeTabAction(ETabs.EXPENSES));
   };
 
   const handleClickResult = (e: React.MouseEvent) => {
-    dispatch({
-      type: "changeTab",
-      newTab: ETabs.RESULT,
-    });
+    dispatch(changeTabAction(ETabs.RESULT));
   };
 
   return (
