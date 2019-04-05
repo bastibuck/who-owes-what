@@ -3,12 +3,12 @@ import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import FriendBox, { EEvenState } from "./friends/FriendBox";
-import { IFriend } from "../../../store/initialState";
+import { IRootStore } from "../../../store/initialState";
+import FriendsList from "./friends/FriendsList";
 
 const Friends = () => {
   // @ts-ignore
-  const [stateValue, dispatch] = useStateValue();
+  const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const [friendName, setFriendName] = useState("");
 
@@ -57,27 +57,7 @@ const Friends = () => {
         </div>
       </form>
 
-      {stateValue.friends.length > 0 && (
-        <>
-          <hr />
-          <h2 className="subtitle">Splitting expenses between:</h2>
-          <div className="columns is-multiline">
-            {stateValue.friends.map((friend: IFriend, index: number) => (
-              <FriendBox
-                friend={friend}
-                evenState={
-                  index % 3 === 0
-                    ? EEvenState.EVEN
-                    : index % 2 === 0
-                    ? EEvenState.GETS
-                    : EEvenState.OWES
-                }
-                key={`friendsBox-${index}`}
-              />
-            ))}
-          </div>
-        </>
-      )}
+      {stateValue.friends.length > 0 && <FriendsList />}
     </div>
   );
 };
