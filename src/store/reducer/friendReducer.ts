@@ -22,8 +22,19 @@ export const removeFriendReducer = (
   state: typeof initialState,
   removeFriend: number,
 ) => {
+  const newFriendById = Object.keys(state.friendsById).reduce(
+    (res: any, key: string) => {
+      if (parseInt(key, 10) !== removeFriend) {
+        res[key] = state.friendsById[parseInt(key, 10)];
+      }
+      return res;
+    },
+    {},
+  );
+
   return {
     ...state,
     friends: state.friends.filter(friend => friend.id !== removeFriend),
+    friendsById: { ...newFriendById },
   };
 };

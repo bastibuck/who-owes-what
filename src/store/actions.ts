@@ -5,6 +5,7 @@ export enum EActions {
   ADD_FRIEND = "ADD_FRIEND",
   REMOVE_FRIEND = "REMOVE_FRIEND",
   ADD_EXPENSE = "ADD_EXPENSE",
+  REMOVE_EXPENSE = "REMOVE_EXPENSE",
 }
 
 export const changeTabAction = (newTab: ETabs) => ({
@@ -25,4 +26,9 @@ export const removeFriendAction = (friendId: number) => ({
 export const addExpenseAction = (newExpense: IExpense) => ({
   payload: newExpense,
   type: EActions.ADD_EXPENSE,
+});
+
+export const removeExpenseAction = (expenseId: number) => ({
+  payload: expenseId,
+  type: EActions.REMOVE_EXPENSE,
 });

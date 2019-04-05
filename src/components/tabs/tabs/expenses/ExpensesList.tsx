@@ -2,13 +2,19 @@ import React from "react";
 import SharedWithSelected from "./SharedWithSelected";
 import { useStateValue } from "../../../../store/useStore";
 import { IExpense, IRootStore } from "../../../../store/initialState";
+import { removeExpenseAction } from "../../../../store/actions";
 
 const ExpensesList = () => {
   // @ts-ignore
-  const [stateValue, dispatch]: [IRootStore] = useStateValue();
+  const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
-  const handleDeleteExpense = (e: React.MouseEvent) => {
+  const handleDeleteExpense = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (e.currentTarget.dataset.expenseId) {
+      dispatch(
+        removeExpenseAction(parseInt(e.currentTarget.dataset.expenseId, 10)),
+      );
+    }
   };
 
   return (

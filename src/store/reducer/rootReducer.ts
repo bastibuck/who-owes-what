@@ -2,7 +2,7 @@ import { initialState } from "../initialState";
 import { changeTabReducer } from "./tabReducer";
 import { addFriendReducer, removeFriendReducer } from "./friendReducer";
 import { EActions } from "../actions";
-import { addExpenseReducer } from "./expenseReducer";
+import { addExpenseReducer, removeExpenseReducer } from "./expenseReducer";
 
 export const rootReducer = (
   state: typeof initialState,
@@ -20,6 +20,9 @@ export const rootReducer = (
 
     case EActions.ADD_EXPENSE:
       return addExpenseReducer(state, action.payload);
+
+    case EActions.REMOVE_EXPENSE:
+      return removeExpenseReducer(state, action.payload);
 
     default:
       return state;
