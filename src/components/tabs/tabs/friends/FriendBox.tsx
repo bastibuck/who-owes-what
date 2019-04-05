@@ -21,17 +21,38 @@ const StyledDelete = styled.button`
   cursor: pointer;
 `;
 
-const FriendBox = (props: IProps) => {
+const FriendBox = ({ friend, evenState }: IProps) => {
   // @ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
   const handleDeleteFriend = (e: React.MouseEvent) => {
-    dispatch(removeFriendAction(props.friend.id));
+    dispatch(removeFriendAction(friend.id));
   };
+
+  // build strings
+  let cssColorClass = "";
+  let evenStateKey = "";
+  switch (evenState) {
+    case EEvenState.EVEN:
+      cssColorClass = "has-background-info";
+      evenStateKey = "is even";
+      break;
+    case EEvenState.OWES:
+      cssColorClass = "has-background-danger";
+      evenStateKey = "owes ";
+      break;
+    case EEvenState.GETS:
+      cssColorClass = "has-background-success";
+      evenStateKey = "lends ";
+      break;
+
+    default:
+      throw new Error("unknown EEvenState");
+  }
 
   return (
     <div className={"column is-one-quarter"}>
-      <div className="box">
+      <div className={`box has-text-white ${cssColorClass}`}>
         <article className="media">
           <div className="media-left">
             <FontAwesomeIcon icon={faUser} />
@@ -39,9 +60,11 @@ const FriendBox = (props: IProps) => {
           <div className="media-content">
             <div className="content">
               <p>
-                <strong>{props.friend.name}</strong>
+                <strong className={`has-text-white ${cssColorClass}`}>
+                  {friend.name}
+                </strong>
                 <br />
-                <small>Quitt / schuldet 123€</small>
+                <small>{evenStateKey}</small>
               </p>
             </div>
           </div>

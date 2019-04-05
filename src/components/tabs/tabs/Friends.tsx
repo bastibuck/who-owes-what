@@ -65,7 +65,13 @@ const Friends = () => {
             {stateValue.friends.map((friend: IFriend, index: number) => (
               <FriendBox
                 friend={friend}
-                evenState={index % 2 === 0 ? EEvenState.OWES : EEvenState.GETS}
+                evenState={
+                  index % 3 === 0
+                    ? EEvenState.EVEN
+                    : index % 2 === 0
+                    ? EEvenState.GETS
+                    : EEvenState.OWES
+                }
                 key={`friendsBox-${index}`}
               />
             ))}
