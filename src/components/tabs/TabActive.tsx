@@ -21,7 +21,7 @@ const getTabContent = (activeTab: ETabs) => {
 };
 
 const TabActive = () => {
-  //@ts-ignore
+  // @ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
   return <div className="container">{getTabContent(stateValue.activeTab)}</div>;
