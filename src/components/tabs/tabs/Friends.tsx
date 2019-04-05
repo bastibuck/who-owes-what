@@ -5,23 +5,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
+import Error from "../../common/Error";
 
 const Friends = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const [friendName, setFriendName] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (friendName) {
-      dispatch(addFriendAction(friendName));
-      setFriendName("");
+      let friendExists = false;
+      for (const friend of Object.keys(stateValue.friendsById)) {
+        if (stateValue.friendsById[parseInt(friend, 10)] === friendName) {
+          friendExists = true;
+        }
+      }
+
+      if (!friendExists) {
+        dispatch(addFriendAction(friendName));
+        setFriendName("");
+      } else {
+        setError(`Friend with name ${friendName} already added`);
+      }
     }
   };
 
   const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFriendName(e.currentTarget.value);
+    setError("");
   };
 
   const handleFriendNameFocus = (e: React.FocusEvent) =>
@@ -32,6 +46,7 @@ const Friends = () => {
     <>
       <div className={"columns"}>
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
+          {error && <Error resetError={setError}>{error}</Error>}
           <form onSubmit={handleSubmit}>
             <div className="field has-addons">
               <div className="control has-icons-left is-expanded">
