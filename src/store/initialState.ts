@@ -12,31 +12,36 @@ export interface IFriend {
 
 export interface IExpense {
   readonly amount: number;
+  readonly name: string;
   readonly sharedWith: number[];
 }
 
 interface IIds {
-  readonly nextFriendId: number;
   readonly nextExpenseId: number;
+  readonly nextFriendId: number;
 }
 
 interface IRootStore {
-  readonly ids: IIds;
   readonly activeTab: ETabs;
+  readonly expenses: IExpense[];
+  readonly expensesById: {
+    [id: number]: IExpense;
+  };
   readonly friends: IFriend[];
   readonly friendsById: {
     [id: number]: string;
   };
-  readonly expenses: IExpense[];
+  readonly ids: IIds;
 }
 
 export const initialState: IRootStore = {
-  ids: {
-    nextFriendId: 0,
-    nextExpenseId: 0,
-  },
   activeTab: ETabs.FRIENDS,
+  expenses: [],
+  expensesById: {},
   friends: [],
   friendsById: {},
-  expenses: [],
+  ids: {
+    nextExpenseId: 0,
+    nextFriendId: 0,
+  },
 };

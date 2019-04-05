@@ -5,6 +5,7 @@ import { IExpense, IFriend } from "../../../store/initialState";
 import { useStateValue } from "../../../store/useStore";
 import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
+import { addExpenseAction } from "../../../store/actions";
 
 const emptyExpense: IExpense = {
   amount: 0,
@@ -19,7 +20,10 @@ const Expenses = () => {
 
   const handleAddExpense = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(expense);
+    if (expense.name && expense.amount > 0 && expense.sharedWith.length > 0) {
+      dispatch(addExpenseAction(expense));
+      setExpense(emptyExpense);
+    }
   };
 
   const handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -60,89 +64,104 @@ const Expenses = () => {
   };
 
   const resetExpense = (e: React.MouseEvent) => {
-    setExpense({
-      amount: 0,
-      name: "",
-      sharedWith: [],
-    });
+    setExpense(emptyExpense);
   };
 
   return (
-    <form onSubmit={handleAddExpense}>
-      <div className="field">
-        <p className="control has-icons-left has-icons-right">
-          <input
-            className="input"
-            type="text"
-            placeholder="What for?"
-            value={expense.name}
-            onChange={handleNameChange}
-          />
-          <span className="icon is-small is-left">
-            <FontAwesomeIcon icon={faCubes} />
-          </span>
-        </p>
-      </div>
-      <div className="field">
-        <p className="control has-icons-left has-icons-right">
-          <input
-            className="input"
-            type="number"
-            min={0.0}
-            step={0.01}
-            placeholder="Amount"
-            value={expense.amount}
-            onChange={handleAmountChange}
-            onFocus={handleAmountFocus}
-          />
-          <span className="icon is-small is-left">
-            <FontAwesomeIcon icon={faDollarSign} />
-          </span>
-        </p>
-      </div>
-      <div className="field">
-        <div className="control is-expanded">
-          <div className="select is-fullwidth">
-            <select value={""} onChange={handleSharedWithChange}>
-              <option>Shared with...</option>
-              {stateValue.friends
-                .filter((friend: IFriend) => {
-                  if (!expense.sharedWith) {
-                    return true;
-                  }
-                  return !expense.sharedWith.includes(friend.id);
-                })
-                .map((friend: IFriend, index: number) => (
-                  <SharedWithOption
-                    friend={friend}
-                    key={`sharedWithOption-${index}`}
-                  />
-                ))}
-            </select>
+    <>
+      <form onSubmit={handleAddExpense}>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="text"
+              placeholder="What for?"
+              value={expense.name}
+              onChange={handleNameChange}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={faCubes} />
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="number"
+              min={0.0}
+              step={0.01}
+              placeholder="Amount"
+              value={expense.amount}
+              onChange={handleAmountChange}
+              onFocus={handleAmountFocus}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={faDollarSign} />
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <div className="control is-expanded">
+            <div className="select is-fullwidth">
+              <select value={""} onChange={handleSharedWithChange}>
+                <option>Shared with...</option>
+                {stateValue.friends
+                  .filter((friend: IFriend) => {
+                    if (!expense.sharedWith) {
+                      return true;
+                    }
+                    return !expense.sharedWith.includes(friend.id);
+                  })
+                  .map((friend: IFriend, index: number) => (
+                    <SharedWithOption
+                      friend={friend}
+                      key={`sharedWithOption-${index}`}
+                    />
+                  ))}
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="field tags">
-        {expense.sharedWith.length > 0 &&
-          expense.sharedWith.map((id: number) => (
-            <SharedWithSelected
-              friendId={id}
-              deleter={handleDeleteSharedWidthSelected}
-              key={`sharedWithSelected-${id}`}
-            />
-          ))}
-      </div>
-      <div className="field is-grouped">
-        <div className="control">
-          <button className="button is-link">Add Expense</button>
+        <div className="field tags">
+          {expense.sharedWith.length > 0 &&
+            expense.sharedWith.map((id: number) => (
+              <SharedWithSelected
+                friendId={id}
+                deleter={handleDeleteSharedWidthSelected}
+                key={`sharedWithSelected-${id}`}
+              />
+            ))}
         </div>
-        <div className="control">
-          <a onClick={resetExpense} className="button is-text">
-            Clear
-          </a>
+        <div className="field is-grouped">
+          <div className="control">
+            <button className="button is-link">Add Expense</button>
+          </div>
+          <div className="control">
+            <a onClick={resetExpense} className="button is-text">
+              Clear
+            </a>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+
+      {stateValue.expenses.length > 0 && (
+        <>
+          <hr />
+          <h2 className="subtitle">Expenses:</h2>
+          <div className="columns is-multiline">
+            {stateValue.expenses.map((expenseItem: IExpense, index: number) => (
+              <div
+                className={"column is-one-quarter"}
+                key={`expenseItem-${index}`}
+              >
+                {expenseItem.name}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
