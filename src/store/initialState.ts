@@ -11,6 +11,7 @@ export interface IFriend {
 }
 
 export interface IExpense {
+  readonly id: number;
   readonly amount: number;
   readonly name: string;
   readonly sharedWith: number[];

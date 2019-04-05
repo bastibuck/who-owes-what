@@ -5,7 +5,11 @@ import { IExpense, IRootStore } from "../../../../store/initialState";
 
 const ExpensesList = () => {
   // @ts-ignore
-  const [stateValue]: [IRootStore] = useStateValue();
+  const [stateValue, dispatch]: [IRootStore] = useStateValue();
+
+  const handleDeleteExpense = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -17,6 +21,7 @@ const ExpensesList = () => {
             <th>What for?</th>
             <th>Amount</th>
             <th>Shared amongst</th>
+            <th />
           </tr>
         </thead>
 
@@ -37,6 +42,13 @@ const ExpensesList = () => {
                       );
                     })}
                   </div>
+                </td>
+                <td>
+                  <button
+                    data-expense-id={expense.id}
+                    onClick={handleDeleteExpense}
+                    className="delete is-small"
+                  />
                 </td>
               </tr>
             );

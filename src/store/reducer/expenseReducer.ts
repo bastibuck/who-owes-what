@@ -8,7 +8,7 @@ export const addExpenseReducer = (
     ...state,
     expenses: [
       ...state.expenses,
-      { id: state.ids.nextExpenseId, ...newExpense },
+      { ...newExpense, id: state.ids.nextExpenseId },
     ],
     expensesById: {
       ...state.expensesById,

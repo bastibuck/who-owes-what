@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faDollarSign } from "@fortawesome/free-solid-svg-icons";
-import { IExpense, IFriend } from "../../../store/initialState";
+import { IExpense, IFriend, IRootStore } from "../../../store/initialState";
 import { useStateValue } from "../../../store/useStore";
 import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
@@ -10,6 +10,7 @@ import ExpensesList from "./expenses/ExpensesList";
 
 const emptyExpense: IExpense = {
   amount: 0,
+  id: -1,
   name: "",
   sharedWith: [],
 };
@@ -17,7 +18,7 @@ const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);
 
   // @ts-ignore
-  const [stateValue, dispatch] = useStateValue();
+  const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const handleAddExpense = (e: React.FormEvent) => {
     e.preventDefault();
