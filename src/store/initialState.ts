@@ -21,7 +21,7 @@ interface IIds {
   readonly nextFriendId: number;
 }
 
-interface IRootStore {
+export interface IRootStore {
   readonly activeTab: ETabs;
   readonly expenses: IExpense[];
   readonly expensesById: {

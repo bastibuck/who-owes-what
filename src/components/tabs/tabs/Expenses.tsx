@@ -6,6 +6,7 @@ import { useStateValue } from "../../../store/useStore";
 import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
 import { addExpenseAction } from "../../../store/actions";
+import ExpensesList from "./expenses/ExpensesList";
 
 const emptyExpense: IExpense = {
   amount: 0,
@@ -104,8 +105,8 @@ const Expenses = () => {
         <div className="field">
           <div className="control is-expanded">
             <div className="select is-fullwidth">
-              <select value={""} onChange={handleSharedWithChange}>
-                <option>Shared with...</option>
+              <select onChange={handleSharedWithChange}>
+                <option>Shared amongst...</option>
                 {stateValue.friends
                   .filter((friend: IFriend) => {
                     if (!expense.sharedWith) {
@@ -145,22 +146,7 @@ const Expenses = () => {
         </div>
       </form>
 
-      {stateValue.expenses.length > 0 && (
-        <>
-          <hr />
-          <h2 className="subtitle">Expenses:</h2>
-          <div className="columns is-multiline">
-            {stateValue.expenses.map((expenseItem: IExpense, index: number) => (
-              <div
-                className={"column is-one-quarter"}
-                key={`expenseItem-${index}`}
-              >
-                {expenseItem.name}
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      {stateValue.expenses.length > 0 && <ExpensesList />}
     </>
   );
 };
