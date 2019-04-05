@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollarSign, faCubes } from "@fortawesome/free-solid-svg-icons";
-import { IFriend } from "../../../../store/initialState";
-import { useStateValue } from "../../../../store/useStore";
-import SharedWithOption from "./SharedWithOption";
-import SharedWithSelected from "./SharedWithSelected";
+import { faCubes, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { IExpense, IFriend } from "../../../store/initialState";
+import { useStateValue } from "../../../store/useStore";
+import SharedWithOption from "./expenses/SharedWithOption";
+import SharedWithSelected from "./expenses/SharedWithSelected";
 
+const emptyExpense: IExpense = {
+  amount: 0,
+  name: "",
+  sharedWith: [],
+};
 const Expenses = () => {
-  const emptyExpense = { amount: "", name: "", sharedWith: [] };
   const [expense, setExpense] = useState(emptyExpense);
-  const [sharedWithIds, setSharedWithIds] = useState();
 
-  //@ts-ignore
+  // @ts-ignore
   const [stateValue, dispatch] = useStateValue();
 
   const handleAddExpense = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(expense);
   };
 
   const handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -28,29 +32,39 @@ const Expenses = () => {
   const handleAmountChange = (e: React.FormEvent<HTMLInputElement>) => {
     setExpense({
       ...expense,
-      amount: e.currentTarget.value,
+      amount: parseFloat(e.currentTarget.value),
     });
   };
 
+  // @ts-ignore
+  const handleAmountFocus = (e: React.FocusEvent) => e.currentTarget.select();
+
   const handleSharedWithChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    setSharedWithIds([
-      ...(sharedWithIds ? sharedWithIds : []),
-      e.currentTarget.value,
-    ]);
+    setExpense({
+      ...expense,
+      sharedWith: [...expense.sharedWith, parseFloat(e.currentTarget.value)],
+    });
   };
 
   const handleDeleteSharedWidthSelected = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    setSharedWithIds([
-      ...sharedWithIds.filter(
-        (id: number) => id.toString() !== e.currentTarget.dataset["friendId"],
-      ),
-    ]);
+    setExpense({
+      ...expense,
+      sharedWith: [
+        ...expense.sharedWith.filter(
+          (id: number) => id.toString() !== e.currentTarget.dataset.friendId,
+        ),
+      ],
+    });
   };
 
   const resetExpense = (e: React.MouseEvent) => {
-    setExpense(emptyExpense);
+    setExpense({
+      amount: 0,
+      name: "",
+      sharedWith: [],
+    });
   };
 
   return (
@@ -74,9 +88,12 @@ const Expenses = () => {
           <input
             className="input"
             type="number"
+            min={0.0}
+            step={0.01}
             placeholder="Amount"
             value={expense.amount}
             onChange={handleAmountChange}
+            onFocus={handleAmountFocus}
           />
           <span className="icon is-small is-left">
             <FontAwesomeIcon icon={faDollarSign} />
@@ -90,10 +107,10 @@ const Expenses = () => {
               <option>Shared with...</option>
               {stateValue.friends
                 .filter((friend: IFriend) => {
-                  if (!sharedWithIds) {
+                  if (!expense.sharedWith) {
                     return true;
                   }
-                  return !sharedWithIds.includes(friend.id.toString());
+                  return !expense.sharedWith.includes(friend.id);
                 })
                 .map((friend: IFriend, index: number) => (
                   <SharedWithOption
@@ -106,8 +123,8 @@ const Expenses = () => {
         </div>
       </div>
       <div className="field tags">
-        {sharedWithIds &&
-          sharedWithIds.map((id: number) => (
+        {expense.sharedWith.length > 0 &&
+          expense.sharedWith.map((id: number) => (
             <SharedWithSelected
               friendId={id}
               deleter={handleDeleteSharedWidthSelected}
@@ -115,18 +132,16 @@ const Expenses = () => {
             />
           ))}
       </div>
-      {expense.name && expense.amount && expense.sharedWith.length > 0 && (
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link">Add Expense</button>
-          </div>
-          <div className="control">
-            <button onClick={resetExpense} className="button is-text">
-              Cancel
-            </button>
-          </div>
+      <div className="field is-grouped">
+        <div className="control">
+          <button className="button is-link">Add Expense</button>
         </div>
-      )}
+        <div className="control">
+          <a onClick={resetExpense} className="button is-text">
+            Clear
+          </a>
+        </div>
+      </div>
     </form>
   );
 };
