@@ -24,47 +24,50 @@ const Friends = () => {
     setFriendName(e.currentTarget.value);
   };
 
-  const handleCancel = (e: React.MouseEvent) => {
+  const handleCancel = (e: React.FocusEvent) => {
     e.preventDefault();
     setFriendName("");
   };
 
   return (
     <div>
-      <div className="columns is-multiline">
-        {stateValue.friends.map((friend: IFriend, index: number) => (
-          <FriendBox friend={friend} key={`friendsBox-${index}`} />
-        ))}
-      </div>
-
       <form onSubmit={handleAddFriend}>
-        <div className="field">
-          <p className="control has-icons-left has-icons-right">
+        <div className="field has-addons">
+          <div className="control has-icons-left">
             <input
               className="input"
               type="text"
               placeholder="Input a friend's name"
               value={friendName}
               onChange={handleFriendNameChange}
+              onBlur={handleCancel}
             />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faUser} />
             </span>
-          </p>
-        </div>
-        {friendName && (
-          <div className={"field is-grouped"}>
-            <div className="control">
-              <button className="button is-link">Add Friend</button>
-            </div>
-            <div className="control">
-              <button onClick={handleCancel} className="button is-text">
-                Cancel
-              </button>
-            </div>
           </div>
-        )}
+          <div className="control">
+            <button
+              className={`button is-link`}
+              disabled={!friendName ? true : false}
+            >
+              Add Friend
+            </button>
+          </div>
+        </div>
       </form>
+
+      {stateValue.friends.length > 0 && (
+        <>
+          <hr />
+          <h2 className="subtitle">Splitting expenses between:</h2>
+          <div className="columns is-multiline">
+            {stateValue.friends.map((friend: IFriend, index: number) => (
+              <FriendBox friend={friend} key={`friendsBox-${index}`} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
