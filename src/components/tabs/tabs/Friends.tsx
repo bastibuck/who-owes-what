@@ -12,7 +12,7 @@ const Friends = () => {
 
   const [friendName, setFriendName] = useState("");
 
-  const handleAddFriend = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (friendName) {
       dispatch(addFriendAction(friendName));
@@ -24,14 +24,13 @@ const Friends = () => {
     setFriendName(e.currentTarget.value);
   };
 
-  const handleCancel = (e: React.FocusEvent) => {
-    e.preventDefault();
-    setFriendName("");
-  };
+  const handleFriendNameFocus = (e: React.FocusEvent) =>
+    // @ts-ignore
+    e.currentTarget.select();
 
   return (
     <div>
-      <form onSubmit={handleAddFriend}>
+      <form onSubmit={handleSubmit}>
         <div className="field has-addons">
           <div className="control has-icons-left">
             <input
@@ -40,7 +39,7 @@ const Friends = () => {
               placeholder="Input a friend's name"
               value={friendName}
               onChange={handleFriendNameChange}
-              onBlur={handleCancel}
+              onFocus={handleFriendNameFocus}
             />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faUser} />
@@ -48,8 +47,9 @@ const Friends = () => {
           </div>
           <div className="control">
             <button
+              type={"submit"}
               className={`button is-link`}
-              disabled={!friendName ? true : false}
+              disabled={!friendName}
             >
               Add Friend
             </button>
