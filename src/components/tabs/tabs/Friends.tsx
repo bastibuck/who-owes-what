@@ -3,7 +3,7 @@ import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import FriendBox from "./friends/FriendBox";
+import FriendBox, { EEvenState } from "./friends/FriendBox";
 import { IFriend } from "../../../store/initialState";
 
 const Friends = () => {
@@ -63,7 +63,11 @@ const Friends = () => {
           <h2 className="subtitle">Splitting expenses between:</h2>
           <div className="columns is-multiline">
             {stateValue.friends.map((friend: IFriend, index: number) => (
-              <FriendBox friend={friend} key={`friendsBox-${index}`} />
+              <FriendBox
+                friend={friend}
+                evenState={index % 2 === 0 ? EEvenState.OWES : EEvenState.GETS}
+                key={`friendsBox-${index}`}
+              />
             ))}
           </div>
         </>

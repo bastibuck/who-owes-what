@@ -7,7 +7,14 @@ import { useStateValue } from "../../../../store/useStore";
 import { removeFriendAction } from "../../../../store/actions";
 
 interface IProps {
-  friend: IFriend;
+  readonly friend: IFriend;
+  readonly evenState: EEvenState;
+}
+
+export enum EEvenState {
+  EVEN,
+  OWES,
+  GETS,
 }
 
 const StyledDelete = styled.button`
