@@ -55,8 +55,8 @@ const FriendBox = ({ friendId, evenState }: IProps) => {
 
   // only enable deleting for friends that don't share any expenses
   let deletable = true;
-  for (const expense of stateValue.expenses) {
-    if (expense.sharedWith.includes(friendId)) {
+  for (const expenseId of stateValue.expenses) {
+    if (stateValue.expensesById[expenseId].sharedWith.includes(friendId)) {
       deletable = false;
     }
   }

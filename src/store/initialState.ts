@@ -13,6 +13,9 @@ export interface IFriend {
   readonly name: string;
 }
 
+export type TExpenseId = number;
+type TExpenseIds = TExpenseId[];
+
 export interface IExpense {
   readonly id: number;
   readonly amount: number;
@@ -27,7 +30,7 @@ interface IIds {
 
 export interface IRootStore {
   readonly activeTab: ETabs;
-  readonly expenses: IExpense[];
+  readonly expenses: TExpenseIds;
   readonly expensesById: {
     [id: number]: IExpense;
   };
@@ -40,14 +43,7 @@ export interface IRootStore {
 
 export const initialState: IRootStore = {
   activeTab: ETabs.FRIENDS,
-  expenses: [
-    {
-      amount: 23,
-      id: 1,
-      name: "Bier",
-      sharedWith: [1, 2],
-    },
-  ],
+  expenses: [1],
   expensesById: {
     1: {
       amount: 23,

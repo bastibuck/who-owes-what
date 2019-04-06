@@ -6,13 +6,10 @@ export const addExpenseReducer = (
 ) => {
   return {
     ...state,
-    expenses: [
-      ...state.expenses,
-      { ...newExpense, id: state.ids.nextExpenseId },
-    ],
+    expenses: [...state.expenses, state.ids.nextExpenseId],
     expensesById: {
       ...state.expensesById,
-      [state.ids.nextExpenseId]: { ...newExpense },
+      [state.ids.nextExpenseId]: { ...newExpense, id: state.ids.nextExpenseId },
     },
     ids: { ...state.ids, nextExpenseId: state.ids.nextExpenseId + 1 },
   };
@@ -34,7 +31,7 @@ export const removeExpenseReducer = (
 
   return {
     ...state,
-    expenses: state.expenses.filter(expense => expense.id !== removeExpense),
+    expenses: state.expenses.filter(expenseId => expenseId !== removeExpense),
     expensesById: {
       ...newExpensesById,
     },

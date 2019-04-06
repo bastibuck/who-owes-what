@@ -1,7 +1,7 @@
 import React from "react";
 import SharedWithSelected from "./SharedWithSelected";
 import { useStateValue } from "../../../../store/useStore";
-import { IExpense, IRootStore } from "../../../../store/initialState";
+import { IRootStore, TExpenseId } from "../../../../store/initialState";
 import { removeExpenseAction } from "../../../../store/actions";
 
 const ExpensesList = () => {
@@ -32,9 +32,11 @@ const ExpensesList = () => {
         </thead>
 
         <tbody>
-          {stateValue.expenses.map((expense: IExpense, index: number) => {
+          {stateValue.expenses.map((expenseId: TExpenseId) => {
+            const expense = stateValue.expensesById[expenseId];
+
             return (
-              <tr key={`expenseRow-${index}`}>
+              <tr key={`expenseRow-${expenseId}`}>
                 <td>{expense.name}</td>
                 <td>{expense.amount}</td>
                 <td>
@@ -43,7 +45,7 @@ const ExpensesList = () => {
                       return (
                         <SharedWithSelected
                           friendId={sharedId}
-                          key={`sharedWithSelectedRow-${sharedId}`}
+                          key={`sharedWithSelectedFriend-${sharedId}`}
                         />
                       );
                     })}
