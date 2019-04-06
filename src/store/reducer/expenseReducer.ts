@@ -4,18 +4,52 @@ export const addExpenseReducer = (
   state: typeof initialState,
   newExpense: IExpense,
 ): IRootStore => {
-  console.log(state.friendsById[newExpense.payer].owes);
+  // clone friendsById
+  const newFriendsById = { ...state.friendsById };
 
-  const newPayerOwesObj = {} as any;
-  Object.keys(state.friendsById[newExpense.payer].owes).forEach(owerId => {
-    const intOwerId = parseInt(owerId, 10);
-    if (newExpense.sharedWith.includes(intOwerId)) {
-      newPayerOwesObj[intOwerId] =
-        state.friendsById[newExpense.payer].owes[intOwerId] -
-        newExpense.amount / (newExpense.sharedWith.length + 1);
-    } else {
-      newPayerOwesObj[intOwerId] =
-        state.friendsById[newExpense.payer].owes[intOwerId];
+  // loop over all friends to find payers and owers and update their owes values
+  state.friends.forEach(friendId => {
+    // build payer
+    if (friendId === newExpense.payer) {
+      const newPayerOwesObj = {} as any;
+      Object.keys(state.friendsById[newExpense.payer].owes).forEach(owerId => {
+        const intOwerId = parseInt(owerId, 10);
+        if (newExpense.sharedWith.includes(intOwerId)) {
+          newPayerOwesObj[intOwerId] =
+            state.friendsById[newExpense.payer].owes[intOwerId] -
+            newExpense.amount / (newExpense.sharedWith.length + 1);
+        } else {
+          newPayerOwesObj[intOwerId] =
+            state.friendsById[newExpense.payer].owes[intOwerId];
+        }
+      });
+
+      newFriendsById[friendId] = {
+        ...state.friendsById[newExpense.payer],
+        owes: { ...newPayerOwesObj },
+      };
+    }
+    // build owers
+    else {
+      if (newExpense.sharedWith.includes(friendId)) {
+        const newOwerOwesObj = {} as any;
+        Object.keys(state.friendsById[friendId].owes).forEach(payerId => {
+          const intPayerId = parseInt(payerId, 10);
+          if (newExpense.payer === intPayerId) {
+            newOwerOwesObj[intPayerId] =
+              state.friendsById[friendId].owes[intPayerId] +
+              newExpense.amount / (newExpense.sharedWith.length + 1);
+          } else {
+            newOwerOwesObj[intPayerId] =
+              state.friendsById[friendId].owes[intPayerId];
+          }
+        });
+
+        newFriendsById[friendId] = {
+          ...state.friendsById[friendId],
+          owes: { ...newOwerOwesObj },
+        };
+      }
     }
   });
 
@@ -27,12 +61,7 @@ export const addExpenseReducer = (
       [state.ids.nextExpenseId]: { ...newExpense, id: state.ids.nextExpenseId },
     },
     friendsById: {
-      ...state.friendsById,
-      [newExpense.payer]: {
-        ...state.friendsById[newExpense.payer],
-        owes: { ...newPayerOwesObj },
-        spent: state.friendsById[newExpense.payer].spent + newExpense.amount,
-      },
+      ...newFriendsById,
     },
     ids: { ...state.ids, nextExpenseId: state.ids.nextExpenseId + 1 },
     pools: {
