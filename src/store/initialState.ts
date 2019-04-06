@@ -12,11 +12,13 @@ type TFriendIds = TFriendId[];
 export interface IFriend {
   readonly id: number;
   readonly name: string;
+  readonly spent: number;
 }
 
 export const emptyFriend: IFriend = {
   id: -1,
   name: "",
+  spent: 0,
 };
 
 // Expenses
