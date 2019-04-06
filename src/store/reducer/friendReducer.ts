@@ -1,18 +1,18 @@
-import { initialState } from "../initialState";
+import { IFriend, initialState, IRootStore } from "../initialState";
 
 export const addFriendReducer = (
   state: typeof initialState,
-  newFriend: string,
-) => {
+  newFriend: IFriend,
+): IRootStore => {
   return {
     ...state,
-    friends: [
-      ...state.friends,
-      { id: state.ids.nextFriendId, name: newFriend },
-    ],
+    friends: [...state.friends, state.ids.nextFriendId],
     friendsById: {
       ...state.friendsById,
-      [state.ids.nextFriendId]: newFriend,
+      [state.ids.nextFriendId]: {
+        id: state.ids.nextFriendId,
+        name: newFriend.name,
+      },
     },
     ids: { ...state.ids, nextFriendId: state.ids.nextFriendId + 1 },
   };

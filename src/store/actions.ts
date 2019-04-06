@@ -1,4 +1,4 @@
-import { ETabs, IExpense } from "./initialState";
+import { ETabs, IExpense, IFriend } from "./initialState";
 
 export enum EActions {
   CHANGE_TAB = "CHANGE_TAB",
@@ -13,7 +13,7 @@ export const changeTabAction = (newTab: ETabs) => ({
   type: EActions.CHANGE_TAB,
 });
 
-export const addFriendAction = (newFriend: string) => ({
+export const addFriendAction = (newFriend: IFriend) => ({
   payload: newFriend,
   type: EActions.ADD_FRIEND,
 });

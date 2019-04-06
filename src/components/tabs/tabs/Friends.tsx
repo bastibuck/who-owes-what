@@ -3,7 +3,7 @@ import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { IRootStore } from "../../../store/initialState";
+import { IFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
 import Error from "../../common/ErrorNotification";
 
@@ -11,30 +11,34 @@ const Friends = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
-  const [friendName, setFriendName] = useState("");
+  const emptyFriend: IFriend = {
+    id: -1,
+    name: "",
+  };
+  const [friend, setFriend] = useState(emptyFriend);
   const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (friendName) {
+    if (friend.name) {
       let friendExists = false;
-      for (const friend of Object.keys(stateValue.friendsById)) {
-        if (stateValue.friendsById[parseInt(friend, 10)].name === friendName) {
+      for (const friendId of stateValue.friends) {
+        if (stateValue.friendsById[friendId].name === friend.name) {
           friendExists = true;
         }
       }
 
       if (!friendExists) {
-        dispatch(addFriendAction(friendName));
-        setFriendName("");
+        dispatch(addFriendAction(friend));
+        setFriend(emptyFriend);
       } else {
-        setError(`Friend with name ${friendName} already added`);
+        setError(`Friend with name ${friend.name} already added`);
       }
     }
   };
 
   const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setFriendName(e.currentTarget.value);
+    setFriend({ ...friend, name: e.currentTarget.value });
     setError("");
   };
 
@@ -54,7 +58,7 @@ const Friends = () => {
                   className="input"
                   type="text"
                   placeholder="Input a friend's name"
-                  value={friendName}
+                  value={friend.name}
                   onChange={handleFriendNameChange}
                   onFocus={handleFriendNameFocus}
                 />
@@ -66,7 +70,7 @@ const Friends = () => {
                 <button
                   type={"submit"}
                   className={`button is-link`}
-                  disabled={!friendName}
+                  disabled={!friend.name}
                 >
                   Add Friend
                 </button>
