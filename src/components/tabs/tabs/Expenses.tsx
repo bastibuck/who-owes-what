@@ -172,7 +172,16 @@ const Expenses = () => {
             </div>
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-link">Add Expense</button>
+                <button
+                  className="button is-link"
+                  disabled={
+                    !expense.name ||
+                    !expense.amount ||
+                    !(expense.sharedWith.length > 0)
+                  }
+                >
+                  Add Expense
+                </button>
               </div>
               <div className="control">
                 <a onClick={resetExpense} className="button is-text">
