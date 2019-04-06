@@ -32,6 +32,16 @@ const ExpensesList = () => {
           </tr>
         </thead>
 
+        <tfoot>
+          <tr>
+            <th />
+            <th />
+            <th>{stateValue.pool.spendings}</th>
+            <th />
+            <th />
+          </tr>
+        </tfoot>
+
         <tbody>
           {stateValue.expenses.map((expenseId: TExpenseId) => {
             const expense = stateValue.expensesById[expenseId];
