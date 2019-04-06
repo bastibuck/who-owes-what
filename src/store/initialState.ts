@@ -13,11 +13,15 @@ export interface IFriend {
   readonly id: number;
   readonly name: string;
   readonly spent: number;
+  readonly owes: {
+    [friendId: number]: number;
+  };
 }
 
 export const emptyFriend: IFriend = {
   id: -1,
   name: "",
+  owes: {},
   spent: 0,
 };
 
@@ -48,19 +52,8 @@ interface IIds {
 }
 
 // pools
-interface IFriendPool {
-  readonly numFriends: number;
-  readonly perFriend: number;
-  readonly spendings: number;
-}
-
-interface IFriendPools {
-  [id: number]: IFriendPool;
-}
-
 interface IPools {
   readonly total: number;
-  readonly friendPools: IFriendPools;
 }
 
 // RootStore
@@ -89,7 +82,6 @@ export const initialState: IRootStore = {
     nextFriendId: 0,
   },
   pools: {
-    friendPools: {},
     total: 0,
   },
 };

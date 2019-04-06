@@ -47,7 +47,7 @@ const ResultFriendBox = ({ friendId }: IProps) => {
 
   return (
     <>
-      <div className={"column is-one-half"}>
+      <div className={"column is-half"}>
         <div className={`box has-text-white ${cssColorClass}`}>
           <article className="media">
             <div className="media-left">
@@ -62,8 +62,25 @@ const ResultFriendBox = ({ friendId }: IProps) => {
                 </p>
                 <div>
                   <ul>
-                    <li>owes 32.45 to FRIENDNAME</li>
-                    <li>FRIENDNAME owes 10.23 to {friend.name}</li>
+                    {Object.keys(friend.owes).map(owesFriendId => {
+                      const owerId = parseInt(owesFriendId, 10);
+
+                      if (friend.owes[owerId] > 0) {
+                        return (
+                          <li key={`owes-to-${owerId}`}>
+                            owes {friend.owes[owerId]} to{" "}
+                            {stateValue.friendsById[owerId].name}
+                          </li>
+                        );
+                      } else {
+                        return (
+                          <li key={`owes-to-${owerId}`}>
+                            gets {friend.owes[owerId] * -1} from{" "}
+                            {stateValue.friendsById[owerId].name}
+                          </li>
+                        );
+                      }
+                    })}
                   </ul>
                 </div>
               </div>
