@@ -4,6 +4,9 @@ export const addExpenseReducer = (
   state: typeof initialState,
   newExpense: IExpense,
 ): IRootStore => {
+  const arrFriendIds = [newExpense.payer, ...newExpense.sharedWith];
+  const newPoolId = parseInt(arrFriendIds.sort().join(""), 10);
+
   return {
     ...state,
     expenses: [...state.expenses, state.ids.nextExpenseId],
@@ -19,8 +22,17 @@ export const addExpenseReducer = (
       },
     },
     ids: { ...state.ids, nextExpenseId: state.ids.nextExpenseId + 1 },
-    pool: {
-      spendings: state.pool.spendings + newExpense.amount,
+    pools: {
+      friendPools: {
+        ...state.pools.friendPools,
+        [newPoolId]: {
+          numFriends: arrFriendIds.length,
+          spendings: state.pools.friendPools[newPoolId]
+            ? state.pools.friendPools[newPoolId].spendings + newExpense.amount
+            : newExpense.amount,
+        },
+      },
+      total: state.pools.total + newExpense.amount,
     },
   };
 };
@@ -28,7 +40,7 @@ export const addExpenseReducer = (
 export const removeExpenseReducer = (
   state: typeof initialState,
   removeExpense: number,
-) => {
+): IRootStore => {
   const oldExpense = state.expensesById[removeExpense];
   const newExpensesById = Object.keys(state.expensesById).reduce(
     (res: any, key: string) => {
@@ -39,6 +51,9 @@ export const removeExpenseReducer = (
     },
     {},
   );
+
+  const arrFriendIds = [oldExpense.payer, ...oldExpense.sharedWith];
+  const oldPoolId = parseInt(arrFriendIds.sort().join(""), 10);
 
   return {
     ...state,
@@ -53,8 +68,16 @@ export const removeExpenseReducer = (
         spent: state.friendsById[oldExpense.payer].spent - oldExpense.amount,
       },
     },
-    pool: {
-      spendings: state.pool.spendings - oldExpense.amount,
+    pools: {
+      friendPools: {
+        ...state.pools.friendPools,
+        [oldPoolId]: {
+          numFriends: arrFriendIds.length,
+          spendings:
+            state.pools.friendPools[oldPoolId].spendings - oldExpense.amount,
+        },
+      },
+      total: state.pools.total - oldExpense.amount,
     },
   };
 };

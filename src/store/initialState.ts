@@ -47,6 +47,22 @@ interface IIds {
   readonly nextFriendId: number;
 }
 
+// pools
+interface IFriendPool {
+  readonly spendings: number;
+  readonly numFriends: number;
+}
+
+interface IFriendPools {
+  [id: number]: IFriendPool;
+}
+
+interface IPools {
+  readonly total: number;
+  readonly friendPools: IFriendPools;
+}
+
+// RootStore
 export interface IRootStore {
   readonly activeTab: ETabs;
   readonly expenses: TExpenseIds;
@@ -58,12 +74,7 @@ export interface IRootStore {
     [id: number]: IFriend;
   };
   readonly ids: IIds;
-  readonly pool: IPool;
-}
-
-// pool
-interface IPool {
-  readonly spendings: number;
+  readonly pools: IPools;
 }
 
 export const initialState: IRootStore = {
@@ -76,8 +87,9 @@ export const initialState: IRootStore = {
     nextExpenseId: 0,
     nextFriendId: 0,
   },
-  pool: {
-    spendings: 0,
+  pools: {
+    friendPools: {},
+    total: 0,
   },
 };
 };

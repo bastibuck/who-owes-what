@@ -36,7 +36,7 @@ const ExpensesList = () => {
           <tr>
             <th />
             <th />
-            <th>{stateValue.pool.spendings}</th>
+            <th>{stateValue.pools.total}</th>
             <th />
             <th />
           </tr>
