@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faDollarSign } from "@fortawesome/free-solid-svg-icons";
-import { IExpense, IFriend, IRootStore } from "../../../store/initialState";
+import { IExpense, IRootStore, TFriendId } from "../../../store/initialState";
 import { useStateValue } from "../../../store/useStore";
 import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
@@ -146,16 +146,16 @@ const Expenses = () => {
                   <select onChange={handleSharedWithChange} value={"-1"}>
                     <option value={"-1"}>Shared amongst...</option>
                     {stateValue.friends
-                      .filter((friend: IFriend) => {
+                      .filter((friendId: TFriendId) => {
                         if (!expense.sharedWith) {
                           return true;
                         }
-                        return !expense.sharedWith.includes(friend.id);
+                        return !expense.sharedWith.includes(friendId);
                       })
-                      .map((friend: IFriend, index: number) => (
+                      .map((friendId: TFriendId) => (
                         <SharedWithOption
-                          friend={friend}
-                          key={`sharedWithOption-${index}`}
+                          friendId={friendId}
+                          key={`sharedWithOption-${friendId}`}
                         />
                       ))}
                   </select>

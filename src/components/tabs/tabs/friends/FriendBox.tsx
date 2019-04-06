@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { IFriend, IRootStore } from "../../../../store/initialState";
+import { IRootStore, TFriendId } from "../../../../store/initialState";
 import { useStateValue } from "../../../../store/useStore";
 import { removeFriendAction } from "../../../../store/actions";
 
 interface IProps {
-  readonly friend: IFriend;
+  readonly friendId: TFriendId;
   readonly evenState: EEvenState;
 }
 
@@ -21,13 +21,16 @@ const StyledDelete = styled.button`
   cursor: pointer;
 `;
 
-const FriendBox = ({ friend, evenState }: IProps) => {
+const FriendBox = ({ friendId, evenState }: IProps) => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const handleDeleteFriend = (e: React.MouseEvent) => {
-    dispatch(removeFriendAction(friend.id));
+    dispatch(removeFriendAction(friendId));
   };
+
+  // friend object
+  const friend = stateValue.friendsById[friendId];
 
   // build strings
   let cssColorClass = "";
@@ -53,7 +56,7 @@ const FriendBox = ({ friend, evenState }: IProps) => {
   // only enable deleting for friends that don't share any expenses
   let deletable = true;
   for (const expense of stateValue.expenses) {
-    if (expense.sharedWith.includes(friend.id)) {
+    if (expense.sharedWith.includes(friendId)) {
       deletable = false;
     }
   }

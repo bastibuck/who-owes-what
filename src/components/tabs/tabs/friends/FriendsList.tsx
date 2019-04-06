@@ -1,5 +1,5 @@
 import React from "react";
-import { IFriend } from "../../../../store/initialState";
+import { TFriendId } from "../../../../store/initialState";
 import FriendBox, { EEvenState } from "./FriendBox";
 import { useStateValue } from "../../../../store/useStore";
 
@@ -12,17 +12,17 @@ const FriendsList = () => {
       <hr />
       <h2 className="subtitle">Splitting expenses between:</h2>
       <div className="columns is-multiline">
-        {stateValue.friends.map((friend: IFriend, index: number) => (
+        {stateValue.friends.map((friendId: TFriendId) => (
           <FriendBox
-            friend={friend}
+            friendId={friendId}
             evenState={
-              index % 3 === 0
+              friendId % 3 === 0
                 ? EEvenState.EVEN
-                : index % 2 === 0
+                : friendId % 2 === 0
                 ? EEvenState.GETS
                 : EEvenState.OWES
             }
-            key={`friendsBox-${index}`}
+            key={`friendsBox-${friendId}`}
           />
         ))}
       </div>

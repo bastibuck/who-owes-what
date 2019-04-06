@@ -5,6 +5,9 @@ export enum ETabs {
   RESULT,
 }
 
+export type TFriendId = number;
+type TFriendIds = TFriendId[];
+
 export interface IFriend {
   readonly id: number;
   readonly name: string;
@@ -28,21 +31,44 @@ export interface IRootStore {
   readonly expensesById: {
     [id: number]: IExpense;
   };
-  readonly friends: IFriend[];
+  readonly friends: TFriendIds;
   readonly friendsById: {
-    [id: number]: string;
+    [id: number]: IFriend;
   };
   readonly ids: IIds;
 }
 
 export const initialState: IRootStore = {
   activeTab: ETabs.FRIENDS,
-  expenses: [],
-  expensesById: {},
-  friends: [],
-  friendsById: {},
+  expenses: [
+    {
+      amount: 23,
+      id: 1,
+      name: "Bier",
+      sharedWith: [1, 2],
+    },
+  ],
+  expensesById: {
+    1: {
+      amount: 23,
+      id: 1,
+      name: "Bier",
+      sharedWith: [1, 2],
+    },
+  },
+  friends: [1, 2],
+  friendsById: {
+    1: {
+      id: 1,
+      name: "Basti",
+    },
+    2: {
+      id: 2,
+      name: "Tom",
+    },
+  },
   ids: {
-    nextExpenseId: 0,
-    nextFriendId: 0,
+    nextExpenseId: 2,
+    nextFriendId: 3,
   },
 };

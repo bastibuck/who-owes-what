@@ -34,7 +34,7 @@ export const removeFriendReducer = (
 
   return {
     ...state,
-    friends: state.friends.filter(friend => friend.id !== removeFriend),
+    friends: state.friends.filter(friendId => friendId !== removeFriend),
     friendsById: { ...newFriendById },
   };
 };

@@ -1,12 +1,17 @@
 import React from "react";
-import { IFriend } from "../../../../store/initialState";
+import { IRootStore, TFriendId } from "../../../../store/initialState";
+import { useStateValue } from "../../../../store/useStore";
 
 interface IProps {
-  readonly friend: IFriend;
+  readonly friendId: TFriendId;
 }
 
-const SharedWithOption = (props: IProps) => {
-  return <option value={props.friend.id}>{props.friend.name}</option>;
+const SharedWithOption = ({ friendId }: IProps) => {
+  // @ts-ignore
+  const [stateValue]: [IRootStore] = useStateValue();
+  const friend = stateValue.friendsById[friendId];
+
+  return <option value={friend.id}>{friend.name}</option>;
 };
 
 export default SharedWithOption;

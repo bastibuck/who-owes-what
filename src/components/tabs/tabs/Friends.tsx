@@ -19,7 +19,7 @@ const Friends = () => {
     if (friendName) {
       let friendExists = false;
       for (const friend of Object.keys(stateValue.friendsById)) {
-        if (stateValue.friendsById[parseInt(friend, 10)] === friendName) {
+        if (stateValue.friendsById[parseInt(friend, 10)].name === friendName) {
           friendExists = true;
         }
       }

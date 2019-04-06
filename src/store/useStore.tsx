@@ -7,6 +7,7 @@ export const StoreContext = createContext({});
 
 // build store provider
 export const StoreProvider = (props: React.PropsWithChildren<{}>) => (
+  // @ts-ignore
   <StoreContext.Provider value={useReducer(rootReducer, initialState)}>
     {props.children}
   </StoreContext.Provider>
