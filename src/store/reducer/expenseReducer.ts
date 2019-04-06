@@ -19,6 +19,9 @@ export const addExpenseReducer = (
       },
     },
     ids: { ...state.ids, nextExpenseId: state.ids.nextExpenseId + 1 },
+    pool: {
+      spendings: state.pool.spendings + newExpense.amount,
+    },
   };
 };
 
@@ -49,6 +52,9 @@ export const removeExpenseReducer = (
         ...state.friendsById[oldExpense.payer],
         spent: state.friendsById[oldExpense.payer].spent - oldExpense.amount,
       },
+    },
+    pool: {
+      spendings: state.pool.spendings - oldExpense.amount,
     },
   };
 };
