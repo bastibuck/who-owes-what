@@ -84,7 +84,9 @@ const ResultFriendBox = ({ friendId }: IProps) => {
                   {Object.keys(friend.owes).map(owesFriendId => {
                     const owerId = parseInt(owesFriendId, 10);
 
-                    if (friend.owes[owerId] > 0) {
+                    if (friend.owes[owerId] === 0) {
+                      return null;
+                    } else if (friend.owes[owerId] > 0) {
                       return (
                         <li key={`owes-to-${owerId}`}>
                           owes {friend.owes[owerId]} to{" "}
