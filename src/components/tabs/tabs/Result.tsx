@@ -1,7 +1,8 @@
 import React from "react";
+import ResultList from "./results/ResultList";
 
 const Result = () => {
-  return <div>Result</div>;
+  return <ResultList />;
 };
 
 export default Result;

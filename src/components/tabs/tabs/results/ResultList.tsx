@@ -1,23 +1,22 @@
 import React from "react";
 import { TFriendId } from "../../../../store/initialState";
-import FriendBox from "./FriendBox";
+import ResultFriendBox from "./ResultFriendBox";
 import { useStateValue } from "../../../../store/useStore";
 
-const FriendsList = () => {
+const ResultList = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   return (
     <>
-      <hr />
-      <h2 className="subtitle">Splitting expenses between:</h2>
+      <h2 className="subtitle">See who owes what</h2>
       <div className="columns is-multiline">
         {stateValue.friends.map((friendId: TFriendId) => (
-          <FriendBox friendId={friendId} key={`friendsBox-${friendId}`} />
+          <ResultFriendBox friendId={friendId} key={`friendsBox-${friendId}`} />
         ))}
       </div>
     </>
   );
 };
 
-export default FriendsList;
+export default ResultList;

@@ -8,20 +8,13 @@ import { removeFriendAction } from "../../../../store/actions";
 
 interface IProps {
   readonly friendId: TFriendId;
-  readonly evenState: EEvenState;
-}
-
-export enum EEvenState {
-  EVEN,
-  OWES,
-  GETS,
 }
 
 const StyledDelete = styled.button`
   cursor: pointer;
 `;
 
-const FriendBox = ({ friendId, evenState }: IProps) => {
+const FriendBox = ({ friendId }: IProps) => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
@@ -31,27 +24,6 @@ const FriendBox = ({ friendId, evenState }: IProps) => {
 
   // friend object
   const friend = stateValue.friendsById[friendId];
-
-  // build strings
-  let cssColorClass = "";
-  let evenStateKey = "";
-  switch (evenState) {
-    case EEvenState.EVEN:
-      cssColorClass = "has-background-info";
-      evenStateKey = "is even";
-      break;
-    case EEvenState.OWES:
-      cssColorClass = "has-background-danger";
-      evenStateKey = "owes ";
-      break;
-    case EEvenState.GETS:
-      cssColorClass = "has-background-success";
-      evenStateKey = "lends ";
-      break;
-
-    default:
-      throw new Error("unknown EEvenState");
-  }
 
   // only enable deleting for friends that don't share any expenses
   let deletable = true;
@@ -63,7 +35,7 @@ const FriendBox = ({ friendId, evenState }: IProps) => {
 
   return (
     <div className={"column is-one-quarter"}>
-      <div className={`box has-text-white ${cssColorClass}`}>
+      <div className={`box`}>
         <article className="media">
           <div className="media-left">
             <FontAwesomeIcon icon={faUser} />
@@ -71,11 +43,7 @@ const FriendBox = ({ friendId, evenState }: IProps) => {
           <div className="media-content">
             <div className="content">
               <p>
-                <strong className={`has-text-white ${cssColorClass}`}>
-                  {friend.name}
-                </strong>
-                <br />
-                <small>{evenStateKey}</small>
+                <strong>{friend.name}</strong>
               </p>
             </div>
           </div>
