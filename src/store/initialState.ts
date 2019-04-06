@@ -27,6 +27,7 @@ export interface IExpense {
   readonly id: number;
   readonly amount: number;
   readonly name: string;
+  readonly payer: number;
   readonly sharedWith: number[];
 }
 
@@ -34,6 +35,7 @@ export const emptyExpense: IExpense = {
   amount: 0,
   id: -1,
   name: "",
+  payer: -1,
   sharedWith: [],
 };
 

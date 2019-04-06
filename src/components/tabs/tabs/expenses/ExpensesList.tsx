@@ -24,9 +24,10 @@ const ExpensesList = () => {
       <table className="table is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
+            <th>Payer</th>
             <th>What for?</th>
             <th>Amount</th>
-            <th>Shared amongst</th>
+            <th>Shared with</th>
             <th />
           </tr>
         </thead>
@@ -37,6 +38,7 @@ const ExpensesList = () => {
 
             return (
               <tr key={`expenseRow-${expenseId}`}>
+                <td>{stateValue.friendsById[expense.payer].name}</td>
                 <td>{expense.name}</td>
                 <td>{expense.amount}</td>
                 <td>

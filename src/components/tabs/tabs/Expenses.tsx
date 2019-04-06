@@ -30,8 +30,9 @@ const Expenses = () => {
         const expenseId = parseInt(expenseItem, 10);
 
         if (
-          expensesById[expenseId].amount === expense.amount &&
+          expensesById[expenseId].payer === expense.payer &&
           expensesById[expenseId].name === expense.name &&
+          expensesById[expenseId].amount === expense.amount &&
           JSON.stringify(expensesById[expenseId].sharedWith.sort) ===
             JSON.stringify(expense.sharedWith.sort)
         ) {
@@ -45,6 +46,16 @@ const Expenses = () => {
       } else {
         setError(`Expense already added`);
       }
+    }
+  };
+
+  const handleWhoPaid = (e: React.FormEvent<HTMLSelectElement>) => {
+    if (parseInt(e.currentTarget.value, 10) !== -1) {
+      setExpense({
+        ...expense,
+        payer: parseInt(e.currentTarget.value, 10),
+      });
+      setError("");
     }
   };
 
@@ -108,7 +119,24 @@ const Expenses = () => {
           )}
           <form onSubmit={handleAddExpense}>
             <div className="field">
-              <p className="control has-icons-left has-icons-right">
+              <div className="control is-expanded">
+                <div className="select is-fullwidth">
+                  <select onChange={handleWhoPaid} value={expense.payer}>
+                    <option value={"-1"} disabled={true}>
+                      Who paid?
+                    </option>
+                    {stateValue.friends.map((friendId: TFriendId) => (
+                      <SharedWithOption
+                        friendId={friendId}
+                        key={`sharedWithOption-${friendId}`}
+                      />
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="field">
+              <p className="control has-icons-left">
                 <input
                   className="input"
                   type="text"
@@ -129,7 +157,7 @@ const Expenses = () => {
                   min={0.0}
                   step={0.01}
                   placeholder="Amount"
-                  value={expense.amount}
+                  value={expense.amount > 0 ? expense.amount : ""}
                   onChange={handleAmountChange}
                   onFocus={handleAmountFocus}
                 />
@@ -141,14 +169,23 @@ const Expenses = () => {
             <div className="field">
               <div className="control is-expanded">
                 <div className="select is-fullwidth">
-                  <select onChange={handleSharedWithChange} value={"-1"}>
-                    <option value={"-1"}>Shared amongst...</option>
+                  <select
+                    onChange={handleSharedWithChange}
+                    value={"-1"}
+                    disabled={expense.payer === -1}
+                  >
+                    <option value={"-1"} disabled={true}>
+                      Shared with...
+                    </option>
                     {stateValue.friends
                       .filter((friendId: TFriendId) => {
                         if (!expense.sharedWith) {
                           return true;
                         }
-                        return !expense.sharedWith.includes(friendId);
+                        return (
+                          !expense.sharedWith.includes(friendId) &&
+                          expense.payer !== friendId
+                        );
                       })
                       .map((friendId: TFriendId) => (
                         <SharedWithOption
@@ -175,6 +212,7 @@ const Expenses = () => {
                 <button
                   className="button is-link"
                   disabled={
+                    expense.payer === -1 ||
                     !expense.name ||
                     !expense.amount ||
                     !(expense.sharedWith.length > 0)
