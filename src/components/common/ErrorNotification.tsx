@@ -4,7 +4,10 @@ interface IProps {
   readonly resetError: (newError: string) => void;
 }
 
-const Error: React.FunctionComponent<IProps> = ({ resetError, children }) => {
+const ErrorNotification: React.FunctionComponent<IProps> = ({
+  resetError,
+  children,
+}) => {
   const handleHide = (e: React.MouseEvent) => {
     resetError("");
   };
@@ -19,4 +22,4 @@ const Error: React.FunctionComponent<IProps> = ({ resetError, children }) => {
   );
 };
 
-export default Error;
+export default ErrorNotification;

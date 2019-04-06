@@ -7,6 +7,7 @@ import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
 import { addExpenseAction } from "../../../store/actions";
 import ExpensesList from "./expenses/ExpensesList";
+import ErrorNotification from "../../common/ErrorNotification";
 
 const emptyExpense: IExpense = {
   amount: 0,
@@ -16,15 +17,36 @@ const emptyExpense: IExpense = {
 };
 const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);
+  const [error, setError] = useState("");
 
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const handleAddExpense = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (expense.name && expense.amount > 0 && expense.sharedWith.length > 0) {
-      dispatch(addExpenseAction(expense));
-      setExpense(emptyExpense);
+      let expenseExists = false;
+      for (const expenseItem of Object.keys(stateValue.expensesById)) {
+        const { expensesById } = stateValue;
+        const expenseId = parseInt(expenseItem, 10);
+
+        if (
+          expensesById[expenseId].amount === expense.amount &&
+          expensesById[expenseId].name === expense.name &&
+          JSON.stringify(expensesById[expenseId].sharedWith.sort) ===
+            JSON.stringify(expense.sharedWith.sort)
+        ) {
+          expenseExists = true;
+        }
+      }
+
+      if (!expenseExists) {
+        dispatch(addExpenseAction(expense));
+        setExpense(emptyExpense);
+      } else {
+        setError(`Expense already added`);
+      }
     }
   };
 
@@ -33,6 +55,7 @@ const Expenses = () => {
       ...expense,
       name: e.currentTarget.value,
     });
+    setError("");
   };
 
   const handleAmountChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -40,6 +63,7 @@ const Expenses = () => {
       ...expense,
       amount: parseFloat(e.currentTarget.value),
     });
+    setError("");
   };
 
   // @ts-ignore
@@ -50,6 +74,7 @@ const Expenses = () => {
       ...expense,
       sharedWith: [...expense.sharedWith, parseFloat(e.currentTarget.value)],
     });
+    setError("");
   };
 
   const handleDeleteSharedWidthSelected = (
@@ -63,16 +88,21 @@ const Expenses = () => {
         ),
       ],
     });
+    setError("");
   };
 
   const resetExpense = (e: React.MouseEvent) => {
     setExpense(emptyExpense);
+    setError("");
   };
 
   return (
     <>
       <div className="columns">
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
+          {error && (
+            <ErrorNotification resetError={setError}>{error}</ErrorNotification>
+          )}
           <form onSubmit={handleAddExpense}>
             <div className="field">
               <p className="control has-icons-left has-icons-right">

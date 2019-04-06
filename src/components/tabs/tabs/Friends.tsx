@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
-import Error from "../../common/Error";
+import Error from "../../common/ErrorNotification";
 
 const Friends = () => {
   // @ts-ignore
