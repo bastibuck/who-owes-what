@@ -4,6 +4,21 @@ export const addExpenseReducer = (
   state: typeof initialState,
   newExpense: IExpense,
 ): IRootStore => {
+  console.log(state.friendsById[newExpense.payer].owes);
+
+  const newPayerOwesObj = {} as any;
+  Object.keys(state.friendsById[newExpense.payer].owes).forEach(owerId => {
+    const intOwerId = parseInt(owerId, 10);
+    if (newExpense.sharedWith.includes(intOwerId)) {
+      newPayerOwesObj[intOwerId] =
+        state.friendsById[newExpense.payer].owes[intOwerId] -
+        newExpense.amount / (newExpense.sharedWith.length + 1);
+    } else {
+      newPayerOwesObj[intOwerId] =
+        state.friendsById[newExpense.payer].owes[intOwerId];
+    }
+  });
+
   return {
     ...state,
     expenses: [...state.expenses, state.ids.nextExpenseId],
@@ -15,6 +30,7 @@ export const addExpenseReducer = (
       ...state.friendsById,
       [newExpense.payer]: {
         ...state.friendsById[newExpense.payer],
+        owes: { ...newPayerOwesObj },
         spent: state.friendsById[newExpense.payer].spent + newExpense.amount,
       },
     },
