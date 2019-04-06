@@ -5,7 +5,7 @@ import { useStateValue } from "../../../../store/useStore";
 
 const ResultList = () => {
   // @ts-ignore
-  const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
+  const [stateValue]: [IRootStore] = useStateValue();
 
   return (
     <>
