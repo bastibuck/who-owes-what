@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faDollarSign } from "@fortawesome/free-solid-svg-icons";
-import { IExpense, IRootStore, TFriendId } from "../../../store/initialState";
+import {
+  emptyExpense,
+  IRootStore,
+  TFriendId,
+} from "../../../store/initialState";
 import { useStateValue } from "../../../store/useStore";
 import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
@@ -9,12 +13,6 @@ import { addExpenseAction } from "../../../store/actions";
 import ExpensesList from "./expenses/ExpensesList";
 import ErrorNotification from "../../common/ErrorNotification";
 
-const emptyExpense: IExpense = {
-  amount: 0,
-  id: -1,
-  name: "",
-  sharedWith: [],
-};
 const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);
   const [error, setError] = useState("");

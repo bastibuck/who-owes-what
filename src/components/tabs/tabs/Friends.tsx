@@ -3,7 +3,7 @@ import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { IFriend, IRootStore } from "../../../store/initialState";
+import { emptyFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
 import Error from "../../common/ErrorNotification";
 
@@ -11,10 +11,6 @@ const Friends = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
-  const emptyFriend: IFriend = {
-    id: -1,
-    name: "",
-  };
   const [friend, setFriend] = useState(emptyFriend);
   const [error, setError] = useState("");
 

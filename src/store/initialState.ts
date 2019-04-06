@@ -1,10 +1,11 @@
-// store types
+// Tabs
 export enum ETabs {
   FRIENDS,
   EXPENSES,
   RESULT,
 }
 
+// Friends
 export type TFriendId = number;
 type TFriendIds = TFriendId[];
 
@@ -13,6 +14,12 @@ export interface IFriend {
   readonly name: string;
 }
 
+export const emptyFriend: IFriend = {
+  id: -1,
+  name: "",
+};
+
+// Expenses
 export type TExpenseId = number;
 type TExpenseIds = TExpenseId[];
 
@@ -23,6 +30,14 @@ export interface IExpense {
   readonly sharedWith: number[];
 }
 
+export const emptyExpense: IExpense = {
+  amount: 0,
+  id: -1,
+  name: "",
+  sharedWith: [],
+};
+
+// IDs
 interface IIds {
   readonly nextExpenseId: number;
   readonly nextFriendId: number;
@@ -43,28 +58,12 @@ export interface IRootStore {
 
 export const initialState: IRootStore = {
   activeTab: ETabs.FRIENDS,
-  expenses: [1],
-  expensesById: {
-    1: {
-      amount: 23,
-      id: 1,
-      name: "Bier",
-      sharedWith: [1, 2],
-    },
-  },
-  friends: [1, 2],
-  friendsById: {
-    1: {
-      id: 1,
-      name: "Basti",
-    },
-    2: {
-      id: 2,
-      name: "Tom",
-    },
-  },
+  expenses: [],
+  expensesById: {},
+  friends: [],
+  friendsById: {},
   ids: {
-    nextExpenseId: 2,
-    nextFriendId: 3,
+    nextExpenseId: 0,
+    nextFriendId: 0,
   },
 };
