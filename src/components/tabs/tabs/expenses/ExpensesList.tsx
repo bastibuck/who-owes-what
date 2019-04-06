@@ -41,7 +41,7 @@ const ExpensesList = () => {
                 <td>{expense.amount}</td>
                 <td>
                   <div className={"tags"}>
-                    {expense.sharedWith.map((sharedId: number) => {
+                    {expense.sharedWith.sort().map((sharedId: number) => {
                       return (
                         <SharedWithSelected
                           friendId={sharedId}
