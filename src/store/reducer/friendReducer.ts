@@ -1,4 +1,9 @@
-import { IFriend, initialState, IRootStore } from "../initialState";
+import {
+  IFriend,
+  initialState,
+  IRootStore,
+  IFriendsById,
+} from "../initialState";
 
 export const addFriendReducer = (
   state: typeof initialState,
@@ -43,9 +48,17 @@ export const removeFriendReducer = (
   removeFriend: number,
 ) => {
   const newFriendById = Object.keys(state.friendsById).reduce(
-    (res: any, key: string) => {
-      if (parseInt(key, 10) !== removeFriend) {
-        res[key] = state.friendsById[parseInt(key, 10)];
+    (res: IFriendsById, key: string) => {
+      const friendId = parseInt(key, 10);
+
+      if (friendId !== removeFriend) {
+        res[friendId] = {
+          ...state.friendsById[friendId],
+          owes: {
+            ...state.friendsById[friendId].owes,
+            [removeFriend]: 0, // TODO: maybe remove completely
+          },
+        };
       }
       return res;
     },

@@ -8,6 +8,9 @@ export enum ETabs {
 // Friends
 export type TFriendId = number;
 type TFriendIds = TFriendId[];
+export interface IFriendsById {
+  [id: number]: IFriend;
+}
 
 export interface IFriend {
   readonly id: number;
