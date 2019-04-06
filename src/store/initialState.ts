@@ -49,8 +49,9 @@ interface IIds {
 
 // pools
 interface IFriendPool {
-  readonly spendings: number;
   readonly numFriends: number;
+  readonly perFriend: number;
+  readonly spendings: number;
 }
 
 interface IFriendPools {

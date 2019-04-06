@@ -6,6 +6,9 @@ export const addExpenseReducer = (
 ): IRootStore => {
   const arrFriendIds = [newExpense.payer, ...newExpense.sharedWith];
   const newPoolId = parseInt(arrFriendIds.sort().join(""), 10);
+  const oldFriendPoolSpendings = state.pools.friendPools[newPoolId]
+    ? state.pools.friendPools[newPoolId].spendings
+    : 0;
 
   return {
     ...state,
@@ -27,9 +30,9 @@ export const addExpenseReducer = (
         ...state.pools.friendPools,
         [newPoolId]: {
           numFriends: arrFriendIds.length,
-          spendings: state.pools.friendPools[newPoolId]
-            ? state.pools.friendPools[newPoolId].spendings + newExpense.amount
-            : newExpense.amount,
+          perFriend:
+            (oldFriendPoolSpendings + newExpense.amount) / arrFriendIds.length,
+          spendings: oldFriendPoolSpendings + newExpense.amount,
         },
       },
       total: state.pools.total + newExpense.amount,
@@ -73,6 +76,9 @@ export const removeExpenseReducer = (
         ...state.pools.friendPools,
         [oldPoolId]: {
           numFriends: arrFriendIds.length,
+          perFriend:
+            (state.pools.friendPools[oldPoolId].spendings - oldExpense.amount) /
+            arrFriendIds.length,
           spendings:
             state.pools.friendPools[oldPoolId].spendings - oldExpense.amount,
         },
