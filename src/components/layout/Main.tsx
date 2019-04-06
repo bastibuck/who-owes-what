@@ -6,6 +6,7 @@ import TabsControl from "../tabs/TabsControl";
 import Header from "./Header";
 import TabActive from "../tabs/TabActive";
 import { useStateValue } from "../../store/useStore";
+import { IRootStore } from "../../store/initialState";
 
 const MainContainer = styled.section`
   flex-grow: 1;
@@ -13,7 +14,7 @@ const MainContainer = styled.section`
 
 const Main = () => {
   // @ts-ignore
-  const [stateValue, dispatch] = useStateValue();
+  const [stateValue]: [IRootStore] = useStateValue();
 
   console.groupCollapsed("Store");
   console.log(stateValue);

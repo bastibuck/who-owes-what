@@ -58,6 +58,12 @@ export interface IRootStore {
     [id: number]: IFriend;
   };
   readonly ids: IIds;
+  readonly pool: IPool;
+}
+
+// pool
+interface IPool {
+  readonly spendings: number;
 }
 
 export const initialState: IRootStore = {
@@ -70,4 +76,8 @@ export const initialState: IRootStore = {
     nextExpenseId: 0,
     nextFriendId: 0,
   },
+  pool: {
+    spendings: 0,
+  },
+};
 };
