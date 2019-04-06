@@ -70,11 +70,16 @@ const Expenses = () => {
   const handleAmountFocus = (e: React.FocusEvent) => e.currentTarget.select();
 
   const handleSharedWithChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    setExpense({
-      ...expense,
-      sharedWith: [...expense.sharedWith, parseFloat(e.currentTarget.value)],
-    });
-    setError("");
+    if (parseInt(e.currentTarget.value, 10) !== -1) {
+      setExpense({
+        ...expense,
+        sharedWith: [
+          ...expense.sharedWith,
+          parseInt(e.currentTarget.value, 10),
+        ],
+      });
+      setError("");
+    }
   };
 
   const handleDeleteSharedWidthSelected = (
@@ -138,8 +143,8 @@ const Expenses = () => {
             <div className="field">
               <div className="control is-expanded">
                 <div className="select is-fullwidth">
-                  <select onChange={handleSharedWithChange}>
-                    <option>Shared amongst...</option>
+                  <select onChange={handleSharedWithChange} value={"-1"}>
+                    <option value={"-1"}>Shared amongst...</option>
                     {stateValue.friends
                       .filter((friend: IFriend) => {
                         if (!expense.sharedWith) {
