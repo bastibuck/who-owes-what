@@ -1,8 +1,8 @@
 import {
   IFriend,
+  IFriendsById,
   initialState,
   IRootStore,
-  IFriendsById,
 } from "../initialState";
 
 export const addFriendReducer = (
