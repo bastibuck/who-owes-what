@@ -1,6 +1,12 @@
 # Who owes what
 
-[Live-Demo](https://wow.bastibuck.de)
+[![GitHub version](https://img.shields.io/github/package-json/v/bastibuck/who-owes-what.svg)](https://github.com/bastibuck/who-owes-what)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/bastibuck/who-owes-what/blob/master/CONTRIBUTING.md)
+[![Netlify Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fdeveloper.oswaldlabs.com%2Fnetlify-status%2F19190b71-a594-4a95-a658-c9f01723abea)](https://app.netlify.com/sites/who-owes-what/deploys)
+
+Go see the [Live-Demo](https://who-owes-what.netlify.com/)
+
+## Description
 
 This is meant to become a simple SPA to help friends split their expenses evenly without getting into a fight. 'cause friendship is more import than money.
 
@@ -8,7 +14,7 @@ Heavily inspired by the many Apps out there I'm using this project to learn and 
 
 ---
 
-## Tech stack
+## This project uses:
 
 - CRA
 - TypeScript
