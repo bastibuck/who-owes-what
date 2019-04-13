@@ -8,6 +8,9 @@ import TabActive from "../tabs/TabActive";
 import { useStateValue } from "../../store/useStore";
 import { IRootStore } from "../../store/initialState";
 
+// other
+import config from "../../config/config";
+
 const MainContainer = styled.section`
   flex-grow: 1;
 `;
@@ -16,9 +19,11 @@ const Main = () => {
   // @ts-ignore
   const [stateValue]: [IRootStore] = useStateValue();
 
-  console.groupCollapsed("Store");
-  console.log(stateValue);
-  console.groupEnd();
+  if (config.develop) {
+    console.groupCollapsed("Store");
+    console.log(stateValue);
+    console.groupEnd();
+  }
 
   return (
     <MainContainer className="section">
