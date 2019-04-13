@@ -47,17 +47,19 @@ const TabsControl = () => {
   const resultsDisabled = expensesDisabled || expenses.length < 1;
 
   const handleClickFriends = (e: React.MouseEvent) => {
-    dispatch(changeTabAction(ETabs.FRIENDS));
+    if (activeTab !== ETabs.FRIENDS) {
+      dispatch(changeTabAction(ETabs.FRIENDS));
+    }
   };
 
   const handleClickExpenses = (e: React.MouseEvent) => {
-    if (!expensesDisabled) {
+    if (!expensesDisabled && activeTab !== ETabs.EXPENSES) {
       dispatch(changeTabAction(ETabs.EXPENSES));
     }
   };
 
   const handleClickResult = (e: React.MouseEvent) => {
-    if (!resultsDisabled) {
+    if (!resultsDisabled && activeTab !== ETabs.RESULT) {
       dispatch(changeTabAction(ETabs.RESULT));
     }
   };
