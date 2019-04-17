@@ -42,11 +42,13 @@ const Friends = () => {
     // @ts-ignore
     e.currentTarget.select();
 
+  const handleResetError = () => setError("");
+
   return (
     <>
       <div className={"columns"}>
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
-          {error && <Error resetError={setError}>{error}</Error>}
+          {error && <Error callback={handleResetError}>{error}</Error>}
           <form onSubmit={handleSubmit}>
             <div className="field has-addons">
               <div className="control has-icons-left is-expanded">

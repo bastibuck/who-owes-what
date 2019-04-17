@@ -36,6 +36,7 @@
   ],
   "devDependencies": {
     "@types/styled-components": "^4.1.12",
+    "react-testing-library": "^6.1.2",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",

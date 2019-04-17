@@ -110,12 +110,16 @@ const Expenses = () => {
     setError("");
   };
 
+  const handleResetError = () => setError("");
+
   return (
     <>
       <div className="columns">
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
           {error && (
-            <ErrorNotification resetError={setError}>{error}</ErrorNotification>
+            <ErrorNotification callback={handleResetError}>
+              {error}
+            </ErrorNotification>
           )}
           <form onSubmit={handleAddExpense}>
             <div className="field">

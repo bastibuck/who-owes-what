@@ -1,21 +1,19 @@
 import React from "react";
 
 interface IProps {
-  readonly resetError: (newError: string) => void;
+  readonly callback: () => void;
 }
 
 const ErrorNotification: React.FunctionComponent<IProps> = ({
-  resetError,
+  callback,
   children,
 }) => {
-  const handleHide = (e: React.MouseEvent) => {
-    resetError("");
-  };
+  const handleHide = (e: React.MouseEvent) => callback();
 
   return (
     <>
       <div className="notification is-danger">
-        <button className="delete" onClick={handleHide} />
+        <button className="delete" onClick={handleHide} role={"button"} />
         {children}
       </div>
     </>
