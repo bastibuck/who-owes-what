@@ -17,7 +17,8 @@
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "types": ["cypress", "../cypress-testing-library/typings"]
   },
   "include": ["src"]
 }
