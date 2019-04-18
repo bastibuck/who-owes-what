@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-interface IProps {
+export interface IProps {
   readonly title: string;
   readonly action: (e: React.MouseEvent) => void;
 }

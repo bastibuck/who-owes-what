@@ -2,17 +2,23 @@ import React from "react";
 import { render, cleanup } from "react-testing-library";
 import FriendsList from "../FriendsList";
 import { StoreProvider } from "../../../../../store/useStore";
-import {
-  IRootStore,
-  initialState,
-  IFriend,
-} from "../../../../../store/initialState";
+import { IRootStore, initialState } from "../../../../../store/initialState";
 
 afterEach(cleanup);
 
+const renderFriendsList = (fakeStore?: IRootStore) => {
+  const utils = render(
+    <StoreProvider optionalStore={fakeStore}>
+      <FriendsList />
+    </StoreProvider>,
+  );
+
+  return { ...utils };
+};
+
 describe("<FriendsList />", () => {
   it("should render correct list of friends", () => {
-    const fakeState: IRootStore = {
+    const fakeStore: IRootStore = {
       ...initialState,
       friends: [0, 1, 2],
       friendsById: {
@@ -37,11 +43,7 @@ describe("<FriendsList />", () => {
       },
     };
 
-    const { getByText } = render(
-      <StoreProvider optionalStore={fakeState}>
-        <FriendsList />
-      </StoreProvider>,
-    );
+    const { getByText } = renderFriendsList(fakeStore);
 
     expect(getByText("Tom Meyer")).toBeDefined();
     expect(getByText("Marty McFly")).toBeDefined();
@@ -49,12 +51,7 @@ describe("<FriendsList />", () => {
   });
 
   it("should render nothing on empty friends", () => {
-    const { queryByText } = render(
-      <StoreProvider>
-        <FriendsList />
-      </StoreProvider>,
-    );
-
+    const { queryByText } = renderFriendsList();
     expect(queryByText(/splitting expenses between/i)).toBeNull();
   });
 });
