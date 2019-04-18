@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { emptyFriend, IRootStore } from "../../../store/initialState";
@@ -11,7 +11,12 @@ const Friends = () => {
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const [friend, setFriend] = useState(emptyFriend);
-  const [error, setError] = useState("");
+
+  type TError = string | undefined;
+  const [error, setError]: [
+    TError,
+    Dispatch<SetStateAction<TError>>
+  ] = useState();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +39,7 @@ const Friends = () => {
 
   const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFriend({ ...friend, name: e.currentTarget.value });
-    setError("");
+    setError(undefined);
   };
 
   const handleFriendNameFocus = (e: React.FocusEvent) =>
@@ -47,12 +52,11 @@ const Friends = () => {
     <>
       <div className={"columns"}>
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
-          {error && (
-            <ErrorNotification
-              errorMsg={error}
-              closeCallback={handleResetError}
-            />
-          )}
+          <ErrorNotification
+            errorMsg={error}
+            closeCallback={handleResetError}
+          />
+
           <FriendsForm
             submitCallback={handleSubmit}
             friendName={friend.name}
@@ -61,7 +65,7 @@ const Friends = () => {
           />
         </div>
       </div>
-      {stateValue.friends.length > 0 && <FriendsList />}
+      <FriendsList />
     </>
   );
 };

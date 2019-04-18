@@ -1,21 +1,17 @@
-import React from "react";
+import React, { FormEvent, FocusEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-interface IProps {
-  readonly submitCallback: (e: React.FormEvent<Element>) => void;
+export interface IProps {
   readonly friendName: string;
-  readonly handleFriendNameChange: (
-    e: React.FormEvent<HTMLInputElement>,
-  ) => void;
-  readonly handleFriendNameFocus: (
-    e: React.FocusEvent<HTMLInputElement>,
-  ) => void;
+  readonly submitCallback: (e: React.FormEvent<Element>) => void;
+  readonly handleFriendNameChange: (e: FormEvent<HTMLInputElement>) => void;
+  readonly handleFriendNameFocus: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 const FriendsForm: React.FC<IProps> = ({
-  submitCallback,
   friendName,
+  submitCallback,
   handleFriendNameChange,
   handleFriendNameFocus,
 }) => (
