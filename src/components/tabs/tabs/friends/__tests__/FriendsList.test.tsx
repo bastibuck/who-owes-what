@@ -12,30 +12,27 @@ afterEach(cleanup);
 
 describe("<FriendsList />", () => {
   it("should render correct list of friends", () => {
-    const fakeFriendById: IFriend = {
-      id: -1,
-      name: "replaced",
-      owes: { 1: 0, 2: 0 },
-      spent: 0,
-    };
     const fakeState: IRootStore = {
       ...initialState,
       friends: [0, 1, 2],
       friendsById: {
         0: {
-          ...fakeFriendById,
           id: 0,
           name: "Tom Meyer",
+          owes: { 1: 0, 2: 0 },
+          spent: 0,
         },
         1: {
-          ...fakeFriendById,
           id: 1,
           name: "Marty McFly",
+          owes: { 0: 0, 2: 0 },
+          spent: 0,
         },
         2: {
-          ...fakeFriendById,
           id: 2,
           name: "Darkwing Duck",
+          owes: { 0: 0, 1: 0 },
+          spent: 0,
         },
       },
     };
@@ -53,7 +50,7 @@ describe("<FriendsList />", () => {
 
   it("should render nothing on empty friends", () => {
     const { queryByText } = render(
-      <StoreProvider optionalStore={initialState}>
+      <StoreProvider>
         <FriendsList />
       </StoreProvider>,
     );

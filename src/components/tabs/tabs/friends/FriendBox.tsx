@@ -6,7 +6,7 @@ import { useStateValue } from "../../../../store/useStore";
 import { removeFriendAction } from "../../../../store/actions";
 import ButtonDelete from "../../../common/ButtonDelete";
 
-interface IProps {
+export interface IProps {
   readonly friendId: TFriendId;
 }
 
