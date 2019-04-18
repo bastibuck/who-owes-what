@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { emptyFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
 import ErrorNotification from "../../notifications/ErrorNotification";
+import FriendsForm from "./friends/FriendsForm";
 
 const Friends = () => {
   // @ts-ignore
@@ -54,32 +53,12 @@ const Friends = () => {
               closeCallback={handleResetError}
             />
           )}
-          <form onSubmit={handleSubmit}>
-            <div className="field has-addons">
-              <div className="control has-icons-left is-expanded">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Input a friend's name"
-                  value={friend.name}
-                  onChange={handleFriendNameChange}
-                  onFocus={handleFriendNameFocus}
-                />
-                <span className="icon is-small is-left">
-                  <FontAwesomeIcon icon={faUser} />
-                </span>
-              </div>
-              <div className="control">
-                <button
-                  type={"submit"}
-                  className={`button is-link`}
-                  disabled={!friend.name}
-                >
-                  Add Friend
-                </button>
-              </div>
-            </div>
-          </form>
+          <FriendsForm
+            submitCallback={handleSubmit}
+            friendName={friend.name}
+            handleFriendNameChange={handleFriendNameChange}
+            handleFriendNameFocus={handleFriendNameFocus}
+          />
         </div>
       </div>
       {stateValue.friends.length > 0 && <FriendsList />}
