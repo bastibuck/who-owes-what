@@ -11,7 +11,7 @@ import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
 import { addExpenseAction } from "../../../store/actions";
 import ExpensesList from "./expenses/ExpensesList";
-import ErrorNotification from "../../common/ErrorNotification";
+import ErrorNotification from "../../notifications/ErrorNotification";
 
 const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);
@@ -117,9 +117,10 @@ const Expenses = () => {
       <div className="columns">
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
           {error && (
-            <ErrorNotification callback={handleResetError}>
-              {error}
-            </ErrorNotification>
+            <ErrorNotification
+              errorMsg={error}
+              closeCallback={handleResetError}
+            />
           )}
           <form onSubmit={handleAddExpense}>
             <div className="field">

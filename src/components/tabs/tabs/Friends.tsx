@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { emptyFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
-import Error from "../../common/ErrorNotification";
+import ErrorNotification from "../../notifications/ErrorNotification";
 
 const Friends = () => {
   // @ts-ignore
@@ -48,7 +48,12 @@ const Friends = () => {
     <>
       <div className={"columns"}>
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
-          {error && <Error callback={handleResetError}>{error}</Error>}
+          {error && (
+            <ErrorNotification
+              errorMsg={error}
+              closeCallback={handleResetError}
+            />
+          )}
           <form onSubmit={handleSubmit}>
             <div className="field has-addons">
               <div className="control has-icons-left is-expanded">
