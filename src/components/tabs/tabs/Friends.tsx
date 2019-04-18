@@ -61,7 +61,7 @@ const Friends = () => {
           />
         </div>
       </div>
-      {stateValue.friends.length > 0 && <FriendsList />}
+      <FriendsList />
     </>
   );
 };
