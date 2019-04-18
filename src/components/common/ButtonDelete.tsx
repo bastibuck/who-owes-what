@@ -1,12 +1,22 @@
 import React from "react";
+import styled from "styled-components";
 
 interface IProps {
   readonly title: string;
-  readonly action: () => void;
+  readonly action: (e: React.MouseEvent) => void;
 }
 
+const StyledDelete = styled.button`
+  cursor: pointer;
+`;
+
 const ButtonDelete: React.FC<IProps> = ({ action, title }) => (
-  <button className="delete" role={"button"} onClick={action} title={title} />
+  <StyledDelete
+    className="delete"
+    role={"button"}
+    onClick={action}
+    title={title}
+  />
 );
 
 export default ButtonDelete;
