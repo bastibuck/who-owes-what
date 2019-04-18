@@ -1,6 +1,6 @@
 {
   "name": "who-owes-what",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "NOT READY YET! This project is still in an early alpha release. Please don't beat your friends up because of results of this tool - these might still be wrong!",
   "private": true,
   "dependencies": {
