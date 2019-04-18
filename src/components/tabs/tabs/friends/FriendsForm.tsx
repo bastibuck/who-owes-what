@@ -2,7 +2,7 @@ import React, { FormEvent, FocusEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-interface IProps {
+export interface IProps {
   readonly friendName: string;
   readonly submitCallback: (e: React.FormEvent<Element>) => void;
   readonly handleFriendNameChange: (e: FormEvent<HTMLInputElement>) => void;

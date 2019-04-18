@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -15,7 +15,12 @@ import ErrorNotification from "../../notifications/ErrorNotification";
 
 const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);
-  const [error, setError] = useState("");
+
+  type TError = string | undefined;
+  const [error, setError]: [
+    TError,
+    Dispatch<SetStateAction<TError>>
+  ] = useState();
 
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
@@ -55,7 +60,7 @@ const Expenses = () => {
         ...expense,
         payer: parseInt(e.currentTarget.value, 10),
       });
-      setError("");
+      setError(undefined);
     }
   };
 
@@ -64,7 +69,7 @@ const Expenses = () => {
       ...expense,
       name: e.currentTarget.value,
     });
-    setError("");
+    setError(undefined);
   };
 
   const handleAmountChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -72,7 +77,7 @@ const Expenses = () => {
       ...expense,
       amount: parseFloat(e.currentTarget.value),
     });
-    setError("");
+    setError(undefined);
   };
 
   // @ts-ignore
@@ -87,7 +92,7 @@ const Expenses = () => {
           parseInt(e.currentTarget.value, 10),
         ],
       });
-      setError("");
+      setError(undefined);
     }
   };
 
@@ -102,26 +107,24 @@ const Expenses = () => {
         ),
       ],
     });
-    setError("");
+    setError(undefined);
   };
 
   const resetExpense = (e: React.MouseEvent) => {
     setExpense(emptyExpense);
-    setError("");
+    setError(undefined);
   };
 
-  const handleResetError = () => setError("");
+  const handleResetError = () => setError(undefined);
 
   return (
     <>
       <div className="columns">
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
-          {error && (
-            <ErrorNotification
-              errorMsg={error}
-              closeCallback={handleResetError}
-            />
-          )}
+          <ErrorNotification
+            errorMsg={error}
+            closeCallback={handleResetError}
+          />
           <form onSubmit={handleAddExpense}>
             <div className="field">
               <div className="control is-expanded">
