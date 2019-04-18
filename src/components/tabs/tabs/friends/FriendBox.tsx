@@ -1,18 +1,14 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
 import { IRootStore, TFriendId } from "../../../../store/initialState";
 import { useStateValue } from "../../../../store/useStore";
 import { removeFriendAction } from "../../../../store/actions";
+import ButtonDelete from "../../../common/ButtonDelete";
 
 interface IProps {
   readonly friendId: TFriendId;
 }
-
-const StyledDelete = styled.button`
-  cursor: pointer;
-`;
 
 const FriendBox = ({ friendId }: IProps) => {
   // @ts-ignore
@@ -52,7 +48,10 @@ const FriendBox = ({ friendId }: IProps) => {
           </div>
           {deletable && (
             <div className="media-right">
-              <StyledDelete className="delete" onClick={handleDeleteFriend} />
+              <ButtonDelete
+                action={handleDeleteFriend}
+                title={`remove '${friend.name}'`}
+              />
             </div>
           )}
         </article>

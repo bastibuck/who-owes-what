@@ -1,6 +1,6 @@
 {
   "name": "who-owes-what",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -23,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +38,9 @@
   ],
   "devDependencies": {
     "@types/styled-components": "^4.1.12",
+    "cypress": "^3.2.0",
+    "cypress-testing-library": "^2.4.0",
+    "react-testing-library": "^6.1.2",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
