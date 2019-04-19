@@ -70,8 +70,9 @@ const TabsControl = () => {
         <div className="tabs is-toggle is-fullwidth">
           <ul className={"is-block-mobile is-flex-tablet"}>
             <Tab
-              className={`is-marginless ${activeTab === ETabs.FRIENDS &&
-                "is-active"}`}
+              className={`is-marginless ${
+                activeTab === ETabs.FRIENDS ? "is-active" : ""
+              }`}
               onClick={handleClickFriends}
             >
               <TabContent>
@@ -82,8 +83,9 @@ const TabsControl = () => {
               </TabContent>
             </Tab>
             <Tab
-              className={`is-marginless ${activeTab === ETabs.EXPENSES &&
-                "is-active"}`}
+              className={`is-marginless ${
+                activeTab === ETabs.EXPENSES ? "is-active" : ""
+              }`}
               onClick={handleClickExpenses}
               disabled={expensesDisabled}
             >
@@ -101,8 +103,9 @@ const TabsControl = () => {
               </TabContent>
             </Tab>
             <Tab
-              className={`is-marginless ${activeTab === ETabs.RESULT &&
-                "is-active"}`}
+              className={`is-marginless ${
+                activeTab === ETabs.RESULT ? "is-active" : ""
+              }`}
               onClick={handleClickResult}
               disabled={resultsDisabled}
             >
