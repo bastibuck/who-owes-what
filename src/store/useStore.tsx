@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { initialState } from "./initialState";
+import { dummyState, initialState } from "./initialState";
 import { rootReducer } from "./reducer/rootReducer";
 
 // build storeContext
 export const StoreContext = createContext({});
 
+const store = true ? initialState : dummyState;
+
 // build store provider
 export const StoreProvider = (props: React.PropsWithChildren<{}>) => (
-  // @ts-ignore
-  <StoreContext.Provider value={useReducer(rootReducer, initialState)}>
+  <StoreContext.Provider value={useReducer(rootReducer, store)}>
     {props.children}
   </StoreContext.Provider>
 );
