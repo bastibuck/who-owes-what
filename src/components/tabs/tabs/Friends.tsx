@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { emptyFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
-import Error from "../../common/ErrorNotification";
+import ErrorNotification from "../../notifications/ErrorNotification";
+import FriendsForm from "./friends/FriendsForm";
 
 const Friends = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
   const [friend, setFriend] = useState(emptyFriend);
-  const [error, setError] = useState("");
+
+  type TError = string | undefined;
+  const [error, setError]: [
+    TError,
+    Dispatch<SetStateAction<TError>>
+  ] = useState();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +39,7 @@ const Friends = () => {
 
   const handleFriendNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFriend({ ...friend, name: e.currentTarget.value });
-    setError("");
+    setError(undefined);
   };
 
   const handleFriendNameFocus = (e: React.FocusEvent) =>
@@ -48,36 +52,20 @@ const Friends = () => {
     <>
       <div className={"columns"}>
         <div className="column is-half-tablet is-offset-one-quarter-tablet">
-          {error && <Error callback={handleResetError}>{error}</Error>}
-          <form onSubmit={handleSubmit}>
-            <div className="field has-addons">
-              <div className="control has-icons-left is-expanded">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Input a friend's name"
-                  value={friend.name}
-                  onChange={handleFriendNameChange}
-                  onFocus={handleFriendNameFocus}
-                />
-                <span className="icon is-small is-left">
-                  <FontAwesomeIcon icon={faUser} />
-                </span>
-              </div>
-              <div className="control">
-                <button
-                  type={"submit"}
-                  className={`button is-link`}
-                  disabled={!friend.name}
-                >
-                  Add Friend
-                </button>
-              </div>
-            </div>
-          </form>
+          <ErrorNotification
+            errorMsg={error}
+            closeCallback={handleResetError}
+          />
+
+          <FriendsForm
+            submitCallback={handleSubmit}
+            friendName={friend.name}
+            handleFriendNameChange={handleFriendNameChange}
+            handleFriendNameFocus={handleFriendNameFocus}
+          />
         </div>
       </div>
-      {stateValue.friends.length > 0 && <FriendsList />}
+      <FriendsList />
     </>
   );
 };

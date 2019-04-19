@@ -7,6 +7,10 @@ const FriendsList = () => {
   // @ts-ignore
   const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
 
+  if (stateValue.friends.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <hr />

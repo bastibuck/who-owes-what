@@ -1,5 +1,10 @@
-import React, { createContext, useContext, useReducer } from "react";
-import { dummyState, initialState } from "./initialState";
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useReducer,
+} from "react";
+import { dummyState, initialState, IRootStore } from "./initialState";
 import { rootReducer } from "./reducer/rootReducer";
 
 // build storeContext
@@ -8,8 +13,16 @@ export const StoreContext = createContext({});
 const store = true ? initialState : dummyState;
 
 // build store provider
-export const StoreProvider = (props: React.PropsWithChildren<{}>) => (
-  <StoreContext.Provider value={useReducer(rootReducer, store)}>
+export const StoreProvider = (
+  props: PropsWithChildren<{ optionalStore?: IRootStore }>,
+) => (
+  // @ts-ignore
+  <StoreContext.Provider
+    value={useReducer(
+      rootReducer,
+      props.optionalStore ? props.optionalStore : store,
+    )}
+  >
     {props.children}
   </StoreContext.Provider>
 );
