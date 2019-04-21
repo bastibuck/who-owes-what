@@ -14,19 +14,34 @@ import { changeTabAction } from "../../store/actions";
 import { ETabs } from "../../store/initialState";
 
 // styled components
-const Tab = styled.li<{ disabled?: boolean }>`
-  ${props =>
-    props.disabled &&
-    `
-    a,
-    a:hover {
-      cursor: not-allowed;
-      border-color: #dbdbdb !important;
-    }
-  `};
-`;
+interface ITabAttrs {
+  readonly tabActive: boolean;
+}
 
-const TabContent = styled.a`
+interface ITabContentAttrs {
+  readonly tabDisabled: boolean;
+}
+
+const Tab = styled.li.attrs((props: ITabAttrs) => ({
+  className: `is-marginless ${props.tabActive ? "is-active" : ""}`,
+}))<ITabAttrs>``;
+
+const TabContent = styled.a.attrs((props: ITabContentAttrs) => ({
+  disabled: props.tabDisabled,
+  className: props.tabDisabled
+    ? "has-text-grey-light has-background-white-ter"
+    : "",
+}))<ITabContentAttrs>`
+  ${props =>
+    props.tabDisabled &&
+    `
+      &,
+      &:hover {
+        cursor: not-allowed;
+        border-color: #dbdbdb !important;
+      }
+  `}
+
   ${mq.mobile(`
     border-radius: 0 !important;
   `)}
@@ -70,12 +85,10 @@ const TabsControl = () => {
         <div className="tabs is-toggle is-fullwidth">
           <ul className={"is-block-mobile is-flex-tablet"}>
             <Tab
-              className={`is-marginless ${
-                activeTab === ETabs.FRIENDS ? "is-active" : ""
-              }`}
+              tabActive={activeTab === ETabs.FRIENDS}
               onClick={handleClickFriends}
             >
-              <TabContent>
+              <TabContent tabDisabled={false}>
                 <IconContainer>
                   <FontAwesomeIcon icon={faUsers} />
                 </IconContainer>
@@ -83,19 +96,10 @@ const TabsControl = () => {
               </TabContent>
             </Tab>
             <Tab
-              className={`is-marginless ${
-                activeTab === ETabs.EXPENSES ? "is-active" : ""
-              }`}
+              tabActive={activeTab === ETabs.EXPENSES}
               onClick={handleClickExpenses}
-              disabled={expensesDisabled}
             >
-              <TabContent
-                className={
-                  expensesDisabled
-                    ? "has-text-grey-light has-background-white-ter"
-                    : ""
-                }
-              >
+              <TabContent tabDisabled={expensesDisabled}>
                 <IconContainer>
                   <FontAwesomeIcon icon={faDollarSign} />
                 </IconContainer>
@@ -103,19 +107,10 @@ const TabsControl = () => {
               </TabContent>
             </Tab>
             <Tab
-              className={`is-marginless ${
-                activeTab === ETabs.RESULT ? "is-active" : ""
-              }`}
+              tabActive={activeTab === ETabs.RESULT}
               onClick={handleClickResult}
-              disabled={resultsDisabled}
             >
-              <TabContent
-                className={
-                  resultsDisabled
-                    ? "has-text-grey-light has-background-white-ter"
-                    : ""
-                }
-              >
+              <TabContent tabDisabled={resultsDisabled}>
                 <IconContainer>
                   <FontAwesomeIcon icon={faChartBar} />
                 </IconContainer>

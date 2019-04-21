@@ -68,12 +68,12 @@ describe("<FriendsForm />", () => {
 
   it("should have disabled button on empty value", () => {
     const { Button } = renderFriendsForm();
-    expect(Button.disabled).toBeTruthy();
+    expect(Button).toBeDisabled();
   });
 
-  it("should have button activated on set value", () => {
+  it("should have button enabled on set value", () => {
     const { Button } = renderFriendsForm({ friendName: "Mickey Mouse" });
-    expect(Button.disabled).toBeFalsy();
+    expect(Button).toBeEnabled();
   });
 
   it("should call submitCallback correctly", () => {
