@@ -68,6 +68,7 @@ const ExpensesList = () => {
                     data-expense-id={expense.id}
                     onClick={handleDeleteExpense}
                     className="delete is-small"
+                    title={`Remove expense`}
                   />
                 </td>
               </tr>
