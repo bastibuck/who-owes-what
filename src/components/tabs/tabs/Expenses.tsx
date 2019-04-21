@@ -239,7 +239,7 @@ const Expenses = () => {
         </div>
       </div>
 
-      {stateValue.expenses.length > 0 && <ExpensesList />}
+      <ExpensesList />
     </>
   );
 };

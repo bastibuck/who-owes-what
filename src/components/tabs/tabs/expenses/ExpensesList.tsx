@@ -3,6 +3,7 @@ import SharedWithSelected from "./SharedWithSelected";
 import { useStateValue } from "../../../../store/useStore";
 import { IRootStore, TExpenseId } from "../../../../store/initialState";
 import { removeExpenseAction } from "../../../../store/actions";
+import ButtonDelete from "../../../common/ButtonDelete";
 
 const ExpensesList = () => {
   // @ts-ignore
@@ -10,12 +11,16 @@ const ExpensesList = () => {
 
   const handleDeleteExpense = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (e.currentTarget.dataset.expenseId) {
+    if (e.currentTarget.dataset.itemId) {
       dispatch(
-        removeExpenseAction(parseInt(e.currentTarget.dataset.expenseId, 10)),
+        removeExpenseAction(parseInt(e.currentTarget.dataset.itemId, 10)),
       );
     }
   };
+
+  if (stateValue.expenses.length < 1) {
+    return null;
+  }
 
   return (
     <>
@@ -64,11 +69,11 @@ const ExpensesList = () => {
                   </div>
                 </td>
                 <td>
-                  <button
-                    data-expense-id={expense.id}
-                    onClick={handleDeleteExpense}
-                    className="delete is-small"
-                    title={`Remove expense`}
+                  <ButtonDelete
+                    title={"Remove expense"}
+                    action={handleDeleteExpense}
+                    additionalClassName={"is-small"}
+                    dataItemId={expense.id}
                   />
                 </td>
               </tr>
