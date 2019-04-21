@@ -1,11 +1,9 @@
 import React from "react";
-import { render, cleanup, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "react-testing-library";
 
 import { ETabs, initialState } from "../../../store/initialState";
 import { StoreProvider } from "../../../store/useStore";
 import TabsControl from "../TabsControl";
-
-afterEach(cleanup);
 
 const renderTabsControl = (
   activeTab?: ETabs,

@@ -1,10 +1,8 @@
 import React from "react";
-import { cleanup, fireEvent, render } from "react-testing-library";
+import { fireEvent, render } from "react-testing-library";
 
 // components
 import ButtonDelete, { IProps } from "../ButtonDelete";
-
-afterEach(cleanup);
 
 const renderButtonDelete = (props?: Partial<IProps>) => {
   const mockCallback = jest.fn();

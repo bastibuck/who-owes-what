@@ -1,10 +1,8 @@
 import React from "react";
-import { cleanup, fireEvent, render } from "react-testing-library";
+import { fireEvent, render } from "react-testing-library";
 
 // components
 import ErrorNotification, { IProps } from "../ErrorNotification";
-
-afterEach(cleanup);
 
 const renderErrorNotification = (props?: Partial<IProps>) => {
   const mockReset = jest.fn();

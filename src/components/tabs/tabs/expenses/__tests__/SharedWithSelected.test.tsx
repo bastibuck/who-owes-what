@@ -1,11 +1,9 @@
 import React from "react";
-import { render, cleanup, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "react-testing-library";
 
 import SharedWithSelected, { IProps } from "../SharedWithSelected";
 import { StoreProvider } from "../../../../../store/useStore";
 import { initialState } from "../../../../../store/initialState";
-
-afterEach(cleanup);
 
 const renderSharedWithSelected = (props?: Partial<IProps>) => {
   const fakeStore = {

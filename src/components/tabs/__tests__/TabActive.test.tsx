@@ -1,11 +1,9 @@
 import React from "react";
-import { render, cleanup } from "react-testing-library";
+import { render } from "react-testing-library";
 
 import TabActive from "../TabActive";
 import { IRootStore, initialState, ETabs } from "../../../store/initialState";
 import { StoreProvider } from "../../../store/useStore";
-
-afterEach(cleanup);
 
 const renderTabActive = (fakeStore?: IRootStore) => {
   const utils = render(

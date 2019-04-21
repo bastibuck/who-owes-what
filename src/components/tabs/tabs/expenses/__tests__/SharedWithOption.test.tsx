@@ -1,11 +1,9 @@
 import React from "react";
-import { render, cleanup } from "react-testing-library";
+import { render } from "react-testing-library";
 
 import SharedWithOption from "../SharedWithOption";
 import { StoreProvider } from "../../../../../store/useStore";
 import { initialState } from "../../../../../store/initialState";
-
-afterEach(cleanup);
 
 const renderSharedWithSelected = () => {
   const fakeStore = {
