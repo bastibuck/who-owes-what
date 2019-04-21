@@ -1,10 +1,8 @@
 import React from "react";
-import { render, cleanup } from "react-testing-library";
+import { render } from "react-testing-library";
 import FriendsList from "../FriendsList";
 import { StoreProvider } from "../../../../../store/useStore";
 import { IRootStore, initialState } from "../../../../../store/initialState";
-
-afterEach(cleanup);
 
 const renderFriendsList = (fakeStore?: IRootStore) => {
   const utils = render(

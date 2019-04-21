@@ -1,9 +1,7 @@
 import React, { FormEvent } from "react";
-import { cleanup, fireEvent, render } from "react-testing-library";
+import { fireEvent, render } from "react-testing-library";
 
 import FriendsForm, { IProps } from "../FriendsForm";
-
-afterEach(cleanup);
 
 const renderFriendsForm = (props?: Partial<IProps>) => {
   let friendName = "";
@@ -70,12 +68,12 @@ describe("<FriendsForm />", () => {
 
   it("should have disabled button on empty value", () => {
     const { Button } = renderFriendsForm();
-    expect(Button.disabled).toBeTruthy();
+    expect(Button).toBeDisabled();
   });
 
-  it("should have button activated on set value", () => {
+  it("should have button enabled on set value", () => {
     const { Button } = renderFriendsForm({ friendName: "Mickey Mouse" });
-    expect(Button.disabled).toBeFalsy();
+    expect(Button).toBeEnabled();
   });
 
   it("should call submitCallback correctly", () => {

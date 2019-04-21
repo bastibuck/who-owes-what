@@ -3,7 +3,7 @@ import { addFriendAction } from "../../../store/actions";
 import { useStateValue } from "../../../store/useStore";
 import { emptyFriend, IRootStore } from "../../../store/initialState";
 import FriendsList from "./friends/FriendsList";
-import ErrorNotification from "../../notifications/ErrorNotification";
+import ErrorNotification from "../../common/ErrorNotification";
 import FriendsForm from "./friends/FriendsForm";
 
 const Friends = () => {

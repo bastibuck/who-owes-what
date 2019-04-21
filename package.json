@@ -1,6 +1,6 @@
 {
   "name": "who-owes-what",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "NOT READY YET! This project is still in an early alpha release. Please don't beat your friends up because of results of this tool - these might still be wrong!",
   "private": true,
   "dependencies": {
@@ -41,6 +41,7 @@
     "@types/styled-components": "^4.1.12",
     "cypress": "^3.2.0",
     "cypress-testing-library": "^2.4.0",
+    "jest-dom": "^3.1.3",
     "react-testing-library": "^6.1.2",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",

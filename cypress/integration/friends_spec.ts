@@ -6,13 +6,13 @@ describe("Friends tab", function() {
   it("should add multiple friends correctly", function() {
     // friend tab active
     cy.contains(/add friends/i)
-      .closest("li")
+      .closest("a")
       .should("not.have.attr", "disabled");
     cy.contains(/add expenses/i)
-      .closest("li")
+      .closest("a")
       .should("have.attr", "disabled");
     cy.contains(/see results/i)
-      .closest("li")
+      .closest("a")
       .should("have.attr", "disabled");
 
     // add button disabled
@@ -43,13 +43,13 @@ describe("Friends tab", function() {
 
     // expenses tab enabled
     cy.contains(/add friends/i)
-      .closest("li")
+      .closest("a")
       .should("not.have.attr", "disabled");
     cy.contains(/add expenses/i)
-      .closest("li")
+      .closest("a")
       .should("not.have.attr", "disabled");
     cy.contains(/see results/i)
-      .closest("li")
+      .closest("a")
       .should("have.attr", "disabled");
 
     // add button disabled
@@ -180,10 +180,10 @@ describe("Friends tab", function() {
     // check app is in initial state
     cy.contains(/splitting expenses between/i).should("not.exist");
     cy.contains(/add expenses/i)
-      .closest("li")
+      .closest("a")
       .should("have.attr", "disabled");
     cy.contains(/see results/i)
-      .closest("li")
+      .closest("a")
       .should("have.attr", "disabled");
     cy.get("button")
       .contains(/add friend/i)

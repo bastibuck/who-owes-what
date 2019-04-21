@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonDelete from "../common/ButtonDelete";
+import ButtonDelete from "./ButtonDelete";
 
 export interface IProps {
   readonly closeCallback: () => void;

@@ -11,7 +11,7 @@ import SharedWithOption from "./expenses/SharedWithOption";
 import SharedWithSelected from "./expenses/SharedWithSelected";
 import { addExpenseAction } from "../../../store/actions";
 import ExpensesList from "./expenses/ExpensesList";
-import ErrorNotification from "../../notifications/ErrorNotification";
+import ErrorNotification from "../../common/ErrorNotification";
 
 const Expenses = () => {
   const [expense, setExpense] = useState(emptyExpense);

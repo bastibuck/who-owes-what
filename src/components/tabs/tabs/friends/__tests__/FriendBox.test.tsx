@@ -1,11 +1,9 @@
 import React from "react";
-import { render, cleanup } from "react-testing-library";
+import { render } from "react-testing-library";
 
 import FriendBox, { IProps } from "../FriendBox";
 import { StoreProvider } from "../../../../../store/useStore";
 import { IRootStore, initialState } from "../../../../../store/initialState";
-
-afterEach(cleanup);
 
 const renderFriendBox = (props?: Partial<IProps>) => {
   const fakeState: IRootStore = {
