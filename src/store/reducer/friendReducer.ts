@@ -11,7 +11,7 @@ export const addFriendReducer = (
 ): IRootStore => {
   // clone friendsById
   const newFriendsById = { ...state.friendsById };
-  const newFriendOwesObj = newFriend.owes;
+  const newFriendOwesObj = { ...newFriend.owes };
 
   // loop over all friends to add new friend to owes object
   state.friends.forEach(friendId => {
