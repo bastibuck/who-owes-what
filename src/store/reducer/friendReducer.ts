@@ -46,19 +46,14 @@ export const addFriendReducer = (
 export const removeFriendReducer = (
   state: typeof initialState,
   removeFriend: number,
-) => {
+): IRootStore => {
   const newFriendById = Object.keys(state.friendsById).reduce(
     (res: IFriendsById, key: string) => {
       const friendId = parseInt(key, 10);
 
       if (friendId !== removeFriend) {
-        res[friendId] = {
-          ...state.friendsById[friendId],
-          owes: {
-            ...state.friendsById[friendId].owes,
-            [removeFriend]: 0, // TODO: maybe remove completely
-          },
-        };
+        res[friendId] = { ...state.friendsById[friendId] };
+        delete res[friendId].owes[removeFriend];
       }
       return res;
     },

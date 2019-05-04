@@ -1,5 +1,5 @@
 import { initialState, IFriend, IRootStore } from "../../initialState";
-import { addFriendReducer } from "../friendReducer";
+import { addFriendReducer, removeFriendReducer } from "../friendReducer";
 
 const fakeStore: IRootStore = {
   ...initialState,
@@ -48,5 +48,17 @@ describe("friendReducer", () => {
     expect(newState.friendsById[fakeStore.ids.nextFriendId]).toMatchObject(
       newFriend,
     );
+  });
+
+  it("should remove friend from store correctly", () => {
+    const removeId = 1;
+    const newState = removeFriendReducer(fakeStore, removeId);
+
+    expect(newState.friends).toHaveLength(2);
+    expect(newState.friends.includes(removeId)).toBeFalsy();
+    expect(newState.friendsById[removeId]).toBeUndefined();
+    expect(newState.friendsById[0].owes[removeId]).toBeUndefined();
+    expect(newState.friendsById[2].owes[removeId]).toBeUndefined();
+    expect(newState.ids.nextFriendId).toBe(3);
   });
 });
