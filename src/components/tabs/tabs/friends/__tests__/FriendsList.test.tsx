@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-testing-library";
+import { render } from "@testing-library/react";
 import FriendsList from "../FriendsList";
 import { StoreProvider } from "../../../../../store/useStore";
 import { IRootStore, initialState } from "../../../../../store/initialState";

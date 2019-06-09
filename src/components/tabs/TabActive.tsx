@@ -7,7 +7,7 @@ import Result from "./tabs/Result";
 
 const TabActive = () => {
   // @ts-ignore
-  const [stateValue, dispatch] = useStateValue();
+  const [stateValue] = useStateValue();
 
   const getTabContent = (activeTab: ETabs) => {
     switch (activeTab) {

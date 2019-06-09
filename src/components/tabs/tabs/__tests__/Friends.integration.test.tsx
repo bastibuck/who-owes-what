@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  render,
-  fireEvent,
-  queryByText,
-  getByText,
-  getAllByText,
-} from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import Friends from "../Friends";
 import { StoreProvider } from "../../../../store/useStore";
 

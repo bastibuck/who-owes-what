@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-testing-library";
+import { render } from "@testing-library/react";
 
 import SharedWithOption from "../SharedWithOption";
 import { StoreProvider } from "../../../../../store/useStore";
@@ -31,11 +31,11 @@ const renderSharedWithSelected = () => {
 describe("<SharedWithOption />", () => {
   it("should render correct friend", () => {
     const { getByText } = renderSharedWithSelected();
-    expect(getByText("Tom Meyer")).toBeDefined();
+    expect(getByText(/tom meyer/i)).toBeDefined();
   });
 
   it("should have correct friend id as value", () => {
-    const { getByValue } = renderSharedWithSelected();
-    expect(getByValue("0")).toBeDefined();
+    const { getByText } = renderSharedWithSelected();
+    expect(getByText(/tom meyer/i)).toHaveValue("0");
   });
 });

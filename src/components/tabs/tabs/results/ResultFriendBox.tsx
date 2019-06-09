@@ -23,7 +23,7 @@ const ResultFriendBox = ({ friendId }: IProps) => {
     Object.keys(friend.owes).map(owesFriendId => {
       const owerId = parseInt(owesFriendId, 10);
 
-      sum += friend.owes[owerId];
+      return (sum += friend.owes[owerId]);
     });
 
     return sum;

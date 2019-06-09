@@ -5,7 +5,7 @@ import { useStateValue } from "../../../../store/useStore";
 
 const FriendsList = () => {
   // @ts-ignore
-  const [stateValue, dispatch]: [IRootStore, any] = useStateValue();
+  const [stateValue]: [IRootStore, any] = useStateValue();
 
   if (stateValue.friends.length === 0) {
     return null;

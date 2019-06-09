@@ -12,6 +12,7 @@ const Footer = () => {
           <a
             href="https://bastibuck.de"
             target="_blank"
+            rel="noopener noreferrer"
             title={"This needs a rework as well."}
           >
             Basti Buck

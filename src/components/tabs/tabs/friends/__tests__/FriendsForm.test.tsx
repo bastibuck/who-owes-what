@@ -1,5 +1,5 @@
 import React, { FormEvent } from "react";
-import { fireEvent, render } from "react-testing-library";
+import { fireEvent, render } from "@testing-library/react";
 
 import FriendsForm, { IProps } from "../FriendsForm";
 
@@ -86,11 +86,11 @@ describe("<FriendsForm />", () => {
   });
 
   it("should call focusCallback correctly", () => {
-    const { getByValue, mockFocusFriendName } = renderFriendsForm({
+    const { getByDisplayValue, mockFocusFriendName } = renderFriendsForm({
       friendName: "Donald Duck",
     });
 
-    fireEvent.focus(getByValue("Donald Duck"));
+    fireEvent.focus(getByDisplayValue("Donald Duck"));
     expect(mockFocusFriendName).toBeCalledTimes(1);
   });
 });

@@ -19,7 +19,7 @@ const Expenses = () => {
   type TError = string | undefined;
   const [error, setError]: [
     TError,
-    Dispatch<SetStateAction<TError>>
+    Dispatch<SetStateAction<TError>>,
   ] = useState();
 
   // @ts-ignore
@@ -230,9 +230,9 @@ const Expenses = () => {
                 </button>
               </div>
               <div className="control">
-                <a onClick={resetExpense} className="button is-text">
+                <button onClick={resetExpense} className="button is-text">
                   Clear
-                </a>
+                </button>
               </div>
             </div>
           </form>
